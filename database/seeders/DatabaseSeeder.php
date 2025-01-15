@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Major;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Filament\Commands\MakeUserCommand as FilamentMakeUserCommand;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-
-        Book::factory(100)->create();
-
-        Member::factory(100)->create();
-
         Major::insert([
             ['name' => 'Rekayasa Perangkat Lunak', 'abbreviation' => 'rpl'],
             ['name' => 'Teknik Komputer dan Jaringan', 'abbreviation' => 'tkj'],
@@ -31,6 +27,17 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Teknik Bisnis Sepeda Motor', 'abbreviation' => 'tbsm'],
             ['name' => 'Teknik Alat Berat', 'abbreviation' => 'tab'],
             ['name' => 'Geologi Pertambangan', 'abbreviation' => 'gp'],
+        ]);
+
+        $filamentMakeUserCommand = new FilamentMakeUserCommand();
+        $reflector = new \ReflectionObject($filamentMakeUserCommand);
+
+        $getUserModel = $reflector->getMethod('getUserModel');
+        $getUserModel->setAccessible(true);
+        $getUserModel->invoke($filamentMakeUserCommand)::create([
+            'name' => env('ADMIN_NAME', 'Main Admin'),
+            'email' => env('ADMIN_EMAIL', 'admin@example.com'),
+            'password' => Hash::make(env('ADMIN_PASSWORD', 'admin')),
         ]);
     }
 }

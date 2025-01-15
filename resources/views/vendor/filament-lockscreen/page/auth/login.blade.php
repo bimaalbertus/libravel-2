@@ -6,18 +6,27 @@
             'subheading' => null,
         ])
 
-        <div class="fi-simple-layout flex min-h-screen flex-col items-center">
-            <div class="fi-simple-main-ctn flex flex-col gap-4 w-full max-w-md flex-grow items-center justify-center">
+        <img src="/gradients/docs-left.png"
+            class="hidden dark:block fixed -left-32 w-[65rem] opacity-0 shadow-[#0a0a0a]/5 blur-md data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
+            alt="docs left background" data-loaded="true" />
+        <img src="/gradients/docs-right.png"
+            class="hidden dark:block fixed -right-96 -top-72 w-[75rem] rotate-180 opacity-0 shadow-[#0a0a0a]/5 blur-md data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
+            alt="docs right background" data-loaded="true" />
+
+        <div class="fi-simple-layout flex min-h-screen flex-col items-center z-[999]">
+            <div
+                class="fi-simple-main-ctn flex flex-col gap-4 w-full max-w-md flex-grow items-center justify-center z-[999]">
                 <main
-                    class="fi-simple-main w-full bg-white p-6 shadow-2xl ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 sm:max-w-lg sm:rounded-xl">
+                    class="fi-simple-main w-full bg-white dark:bg-neutral-900/30 p-6 shadow-2xl shadow-neutral-500 dark:shadow-black sm:max-w-lg sm:rounded-xl">
                     {{-- Slot --}}
                     <div class="flex flex-col items-center gap-8">
-                        <img class="w-56 h-56 rounded-full"
+                        <h1 class="font-bold text-2xl">{{ __('filament-lockscreen::default.user_menu_title') }}</h1>
+                        <img class="w-12 h-12 rounded-full"
                             src="{{ \Filament\Facades\Filament::getUserAvatarUrl(\Filament\Facades\Filament::auth()->user()) }}"
                             alt="avatar">
                     </div>
-                    <div class="flex flex-row justify-center">
-                        <div class="font-medium dark:text-white">
+                    <div class="flex flex-row justify-center mt-3 mb-8">
+                        <div class="font-semibold dark:text-white">
                             <div>{{ \Filament\Facades\Filament::auth()->user()?->name ?? '' }}</div>
                         </div>
                     </div>

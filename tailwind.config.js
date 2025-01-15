@@ -1,9 +1,12 @@
 import defaultTheme from "tailwindcss/defaultTheme";
+import preset from "./vendor/filament/filament/tailwind.config.preset";
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    presets: [preset],
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+        "./vendor/**/*.blade.php",
         "./vendor/filament/**/*.blade.php",
         "./vendor/awcodes/palette/resources/views/**/*.blade.php",
         "./storage/framework/views/*.php",
@@ -11,6 +14,7 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
     ],
+    darkMode: "class",
     theme: {
         extend: {
             fontFamily: {
@@ -22,6 +26,44 @@ export default {
                 subjectivity: ["Subjectivity", "sans-serif"],
                 "dela-gothic-one": ["Dela Gothic One", "serif"],
                 fenix: ["Fenix", "serif"],
+                "albert-sans": ["Albert Sans", "serif"],
+                "jersey-15": ["'Jersey 15'", "serif"],
+            },
+            colors: {
+                light: {
+                    primary: "#FF6B6B",
+                    "primary-variant": "#1E90FF",
+                    secondary: "#4ECDC4",
+                    "secondary-variant": "#FFC107",
+                    "btn-primary": "#02F67C",
+                    bg: "#F1F5F9",
+                    "bg-secondary": "#F5F5F5",
+                    surface: "rgba(0, 0, 0, 0.1)",
+                    error: "#b00020",
+                    "on-primary": "#fff",
+                    "on-secondary": "#000",
+                    "on-bg": "#222222",
+                    "on-bg-secondary": "#555555",
+                    "on-surface": "#000",
+                    "on-error": "#fff",
+                },
+                dark: {
+                    primary: "#FF6B6B",
+                    "primary-variant": "#4ECDC4",
+                    secondary: "#1E90FF",
+                    "secondary-variant": "#FFC107",
+                    "btn-primary": "#bb86fc",
+                    bg: "#030806",
+                    "bg-secondary": "#1f1f1f",
+                    surface: "rgba(255, 255, 255, 0.1)",
+                    error: "#cf6679",
+                    "on-primary": "#22272B",
+                    "on-secondary": "#000",
+                    "on-bg": "#fff",
+                    "on-bg-secondary": "#bbbbbb",
+                    "on-surface": "#fff",
+                    "on-error": "#000",
+                },
             },
         },
     },

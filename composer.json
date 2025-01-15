@@ -3,25 +3,34 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "awcodes/filament-quick-create": "^3.6",
         "awcodes/light-switch": "^1.0",
         "awcodes/palette": "^1.0",
+        "cloudinary-labs/cloudinary-laravel": "^2.2",
+        "coolsam/flatpickr": "^3.1",
         "filament/filament": "^3.2",
+        "filament/spatie-laravel-media-library-plugin": "^3.2",
+        "filament/spatie-laravel-tags-plugin": "^3.2",
         "flowframe/laravel-trend": "^0.3.0",
         "geo-sot/filament-env-editor": "^0.0.6",
         "hasnayeen/themes": "^3.0",
+        "hydrat/filament-table-layout-toggle": "^2.0",
         "ibrahimbougaoua/filasortable": "^1.0",
         "joaopaulolndev/filament-edit-profile": "^1.0",
+        "joshembling/image-optimizer": "^1.4",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "marjose123/filament-lockscreen": "^2.0",
-        "tomatophp/filament-language-switcher": "^1.0",
-        "tomatophp/filament-plugins": "*",
-        "tomatophp/filament-settings-hub": "^2.0"
+        "solution-forest/filament-scaffold": "^0.0.7",
+        "tomatophp/filament-language-switcher": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -77,7 +86,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
         }
     },
     "minimum-stability": "stable",

@@ -23,14 +23,21 @@ class MajorResource extends Resource
     protected static ?string $navigationGroup = 'CRUD';
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
+    public static function getLabel(): string
+    {
+        return __('major/fields.page.title');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label(__('major/fields.fields.name'))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('abbreviation')
+                    ->label(__('major/fields.fields.abbreviation'))
                     ->required()
                     ->unique()
                     ->maxLength(255),
@@ -41,8 +48,13 @@ class MajorResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('abbreviation')->searchable(),
+                TextColumn::make('name')
+                    ->label(__('major/fields.fields.name'))
+                    ->searchable(),
+                TextColumn::make('abbreviation')
+                    ->label(__('major/fields.fields.abbreviation'))
+                    ->formatStateUsing(fn($state) => strtoupper($state))
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -68,8 +80,6 @@ class MajorResource extends Resource
     {
         return [
             'index' => Pages\ListMajors::route('/'),
-            'create' => Pages\CreateMajor::route('/create'),
-            'edit' => Pages\EditMajor::route('/{record}/edit'),
         ];
     }
 }

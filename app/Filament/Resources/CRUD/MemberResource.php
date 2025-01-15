@@ -14,6 +14,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
@@ -28,22 +29,51 @@ class MemberResource extends Resource
     protected static ?string $slug = 'crud/members';
     protected static ?string $navigationGroup = 'CRUD';
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?int $navigationSort = 2;
+
+    public static function getLabel(): string
+    {
+        return __('members/fields.page.title');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('fullname')->label('Full Name')->required(),
-                TextInput::make('username')->unique('members', 'username', ignoreRecord: true)->required(),
-                TextInput::make('password')->password()->required(),
+                TextInput::make('fullname')
+                    ->label(__('members/fields.fields.fullname'))
+                    ->required()
+                    ->rules(['max:128'])
+                    ->live()
+                    ->afterStateUpdated(function (Forms\Contracts\HasForms $livewire, Forms\Components\TextInput $component) {
+                        /** @var \Livewire\Component $livewire */
+                        $livewire->validateOnly($component->getStatePath());
+                    }),
+                TextInput::make('username')
+                    ->label(__('members/fields.fields.username'))
+                    ->unique('members', 'username', ignoreRecord: true)
+                    ->required()
+                    ->rules(['alpha_dash', 'min:3', 'max:32'])
+                    ->live()
+                    ->afterStateUpdated(function (Forms\Contracts\HasForms $livewire, Forms\Components\TextInput $component) {
+                        /** @var \Livewire\Component $livewire */
+                        $livewire->validateOnly($component->getStatePath());
+                    }),
+                TextInput::make('password')
+                    ->label(__('members/fields.fields.password'))
+                    ->password()
+                    ->required(),
                 Select::make('status')
-                    ->options(['teacher' => 'Teacher', 'student' => 'Student', 'employee' => 'Employee'])
+                    ->label('Status')
+                    ->options(['teacher' => __('members/fields.fields.status.teacher'), 'student' => __('members/fields.fields.status.student')])
                     ->required(),
                 Radio::make('gender')
-                    ->options(['male' => 'Male', 'female' => 'Female'])
+                    ->label(__('members/fields.fields.gender.label'))
+                    ->options(['male' => __('members/fields.fields.gender.male'), 'female' => __('members/fields.fields.gender.female')])
                     ->required(),
                 Select::make('major')
-                    ->label('Major')
+                    ->label(__('members/fields.fields.major'))
                     ->options(Major::query()->pluck('name', 'abbreviation')->toArray())
                     ->searchable()
                     ->nullable(),
@@ -54,11 +84,23 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('fullname')->label('Full Name')->searchable()->sortable(),
-                TextColumn::make('username')->searchable()->sortable(),
-                TextColumn::make('status')->formatStateUsing(fn($state) => ucfirst($state)),
-                TextColumn::make('gender')->formatStateUsing(fn($state) => ucfirst($state)),
-                TextColumn::make('major')->label('Major')->formatStateUsing(fn($state) => strtoupper($state)),
+                TextColumn::make('fullname')
+                    ->label(__('members/fields.fields.fullname'))
+                    ->searchable()
+                    ->sortable()
+                    ->weight('medium'),
+                TextColumn::make('username')
+                    ->label(__('members/fields.fields.username'))
+                    ->searchable()
+                    ->sortable()
+                    ->color('gray'),
+                TextColumn::make('status')
+                    ->formatStateUsing(fn($state) => __("members/fields.fields.status.{$state}")),
+                TextColumn::make('gender')
+                    ->formatStateUsing(fn($state) => __("members/fields.fields.gender.{$state}")),
+                TextColumn::make('major')
+                    ->label(__('members/fields.fields.major'))
+                    ->formatStateUsing(fn($state) => strtoupper($state)),
             ])
             ->filters([
                 SelectFilter::make('status')
@@ -66,7 +108,6 @@ class MemberResource extends Resource
                     ->options([
                         'teacher' => 'Teacher',
                         'student' => 'Student',
-                        'employee' => 'Employee',
                     ]),
                 SelectFilter::make('gender')
                     ->label('Gender')
@@ -82,10 +123,17 @@ class MemberResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->action(function () {
+                            Notification::make()
+                                ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                                ->warning()
+                                ->send();
+                        }),
                 ]),
             ]);
     }
@@ -101,8 +149,6 @@ class MemberResource extends Resource
     {
         return [
             'index' => Pages\ListMembers::route('/'),
-            'create' => Pages\CreateMember::route('/create'),
-            'edit' => Pages\EditMember::route('/{record}/edit'),
         ];
     }
 }

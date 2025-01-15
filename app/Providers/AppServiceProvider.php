@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
-use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Filament::serving(function () {
+        //     Filament::registerRenderHook('global-search.end', function () {
+        //         return view('components.language-switcher');
+        //     });
+        // });
     }
 }

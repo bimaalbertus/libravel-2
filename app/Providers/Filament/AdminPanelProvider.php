@@ -3,10 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Dashboard;
-use App\Filament\Resources\AdminResource\Widgets\LatestBooks;
-use App\Filament\Resources\AdminResource\Widgets\StatsWidget;
-use App\Filament\Resources\AdminResource\Widgets\TotalMembers;
-use App\Filament\Resources\CRUD\Widgets\BookDownloads;
+use App\Filament\Pages\Gallery;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -35,6 +32,7 @@ use Awcodes\Palette\Forms\Components\ColorPicker;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Hasnayeen\Themes\ThemesPlugin;
 use IbrahimBougaoua\FilaSortable\FilaSortablePlugin;
+use Solutionforest\FilamentScaffold\FilamentScaffoldPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -48,10 +46,13 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->font('Figtree')
+            ->viteTheme('resources/css/app.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Dashboard::class
+                Dashboard::class,
+                Gallery::class
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
@@ -68,17 +69,11 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationIcon('heroicon-o-cog-8-tooth')
                     ->navigationSort(1)
                     ->slug('env-editor'),
-                new Lockscreen(),
-                LightSwitchPlugin::make()
-                    ->enabledOn([
-                        'auth.email',
-                        'auth.login',
-                        'auth.password',
-                        'auth.profile',
-                        'auth.register',
-                    ]),
+                // new Lockscreen(),
+                LightSwitchPlugin::make(),
                 FilaSortablePlugin::make(),
-                ThemesPlugin::make()
+                ThemesPlugin::make(),
+                FilamentScaffoldPlugin::make()
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -90,12 +85,12 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                LockerTimer::class,
+                // LockerTimer::class,
                 SetTheme::class
             ])
             ->authMiddleware([
                 Authenticate::class,
-                Locker::class,
+                // Locker::class,
                 SetTheme::class
             ]);
     }
