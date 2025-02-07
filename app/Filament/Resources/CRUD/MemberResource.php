@@ -3,15 +3,12 @@
 namespace App\Filament\Resources\CRUD;
 
 use App\Filament\Resources\CRUD\MemberResource\Pages;
-use App\Filament\Resources\CRUD\MemberResource\RelationManagers;
-use App\Models\Member;
 use App\Models\Major;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -19,14 +16,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MemberResource extends Resource
 {
-    protected static ?string $model = Member::class;
+    protected static ?string $model = User::class;
 
-    protected static ?string $slug = 'crud/members';
+    protected static ?string $slug = 'crud/users';
     protected static ?string $navigationGroup = 'CRUD';
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $recordTitleAttribute = 'name';
@@ -37,20 +32,30 @@ class MemberResource extends Resource
         return __('members/fields.page.title');
     }
 
+    public static function beforeSave($record, array $data)
+    {
+        if (empty($data['password'])) {
+            unset($data['password']);
+        } else {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        return $data;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('fullname')
+                Forms\Components\TextInput::make('fullname')
                     ->label(__('members/fields.fields.fullname'))
-                    ->required()
                     ->rules(['max:128'])
                     ->live()
                     ->afterStateUpdated(function (Forms\Contracts\HasForms $livewire, Forms\Components\TextInput $component) {
                         /** @var \Livewire\Component $livewire */
                         $livewire->validateOnly($component->getStatePath());
                     }),
-                TextInput::make('username')
+                Forms\Components\TextInput::make('username')
                     ->label(__('members/fields.fields.username'))
                     ->unique('members', 'username', ignoreRecord: true)
                     ->required()
@@ -60,19 +65,24 @@ class MemberResource extends Resource
                         /** @var \Livewire\Component $livewire */
                         $livewire->validateOnly($component->getStatePath());
                     }),
-                TextInput::make('password')
+                Forms\Components\TextInput::make('password')
                     ->label(__('members/fields.fields.password'))
                     ->password()
-                    ->required(),
-                Select::make('status')
+                    ->dehydrateStateUsing(fn($state) => !empty($state) ? bcrypt($state) : null)
+                    ->dehydrated(fn($state) => filled($state))
+                    ->required(fn($livewire) => $livewire instanceof Pages\CreateMember),
+                Forms\Components\Select::make('status')
                     ->label('Status')
-                    ->options(['teacher' => __('members/fields.fields.status.teacher'), 'student' => __('members/fields.fields.status.student')])
+                    ->options([
+                        'admin' => 'Admin',
+                        'teacher' => __('members/fields.fields.status.teacher'),
+                        'student' => __('members/fields.fields.status.student')
+                    ])
                     ->required(),
-                Radio::make('gender')
+                Forms\Components\Radio::make('gender')
                     ->label(__('members/fields.fields.gender.label'))
-                    ->options(['male' => __('members/fields.fields.gender.male'), 'female' => __('members/fields.fields.gender.female')])
-                    ->required(),
-                Select::make('major')
+                    ->options(['male' => __('members/fields.fields.gender.male'), 'female' => __('members/fields.fields.gender.female')]),
+                Forms\Components\Select::make('major')
                     ->label(__('members/fields.fields.major'))
                     ->options(Major::query()->pluck('name', 'abbreviation')->toArray())
                     ->searchable()
@@ -84,39 +94,41 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('fullname')
+                Tables\Columns\TextColumn::make('fullname')
                     ->label(__('members/fields.fields.fullname'))
                     ->searchable()
                     ->sortable()
                     ->weight('medium'),
-                TextColumn::make('username')
+                Tables\Columns\TextColumn::make('username')
                     ->label(__('members/fields.fields.username'))
                     ->searchable()
                     ->sortable()
                     ->color('gray'),
-                TextColumn::make('status')
-                    ->formatStateUsing(fn($state) => __("members/fields.fields.status.{$state}")),
-                TextColumn::make('gender')
+                Tables\Columns\TextColumn::make('status')
+                    ->formatStateUsing(fn($state) => __("members/fields.fields.status.{$state}"))
+                    ->color(fn($state) => $state === 'admin' ? 'success' : 'info'),
+                Tables\Columns\TextColumn::make('gender')
                     ->formatStateUsing(fn($state) => __("members/fields.fields.gender.{$state}")),
-                TextColumn::make('major')
+                Tables\Columns\TextColumn::make('major')
                     ->label(__('members/fields.fields.major'))
                     ->formatStateUsing(fn($state) => strtoupper($state)),
             ])
             ->filters([
-                SelectFilter::make('status')
+                Tables\Filters\SelectFilter::make('status')
                     ->label('Status')
                     ->options([
-                        'teacher' => 'Teacher',
-                        'student' => 'Student',
+                        'admin' => 'Admin',
+                        'teacher' => __('members/fields.fields.status.teacher'),
+                        'student' => __('members/fields.fields.status.student')
                     ]),
-                SelectFilter::make('gender')
-                    ->label('Gender')
+                Tables\Filters\SelectFilter::make('gender')
+                    ->label(__('members/fields.fields.gender.label'))
                     ->options([
-                        'male' => 'Male',
-                        'female' => 'Female',
+                        'male' => __('members/fields.fields.gender.male'),
+                        'female' => __('members/fields.fields.gender.female')
                     ]),
-                SelectFilter::make('major')
-                    ->label('Major')
+                Tables\Filters\SelectFilter::make('major')
+                    ->label(__('members/fields.fields.major'))
                     ->options(
                         Major::query()->pluck('name', 'abbreviation')->toArray()
                     ),

@@ -2,7 +2,7 @@
 
 return [
     'page' => [
-        'title' => 'Member'
+        'title' => 'Users'
     ],
     'fields' => [
         'fullname' => 'Full Name',
@@ -10,13 +10,14 @@ return [
         'password' => 'Password',
         'status' => [
             'student' => 'Student',
-            'teacher' => 'Teacher'
+            'teacher' => 'Teacher',
+            'admin' => 'Admin'
         ],
         'gender' => [
             'label' => 'Gender',
             'male' => 'Male',
             'female' => 'Female'
         ],
-        'major' => 'Major'
+        'major' => 'Major',
     ]
 ];

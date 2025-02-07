@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->string('major')->nullable();
             $table->foreign('major')->references('abbreviation')->on('majors')->onDelete('cascade');
+            $table->string('language')->default('en');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

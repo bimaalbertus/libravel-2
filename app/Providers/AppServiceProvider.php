@@ -3,7 +3,12 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use App\Extensions\DatabaseSessionHandler;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,10 +25,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Filament::serving(function () {
-        //     Filament::registerRenderHook('global-search.end', function () {
-        //         return view('components.language-switcher');
-        //     });
+        // Session::extend('database', function ($app) {
+        //     $table   = config('session.table');
+        //     $minutes = config('session.lifetime');
+
+        //     return new DatabaseSessionHandler($this->getDatabaseConnection(), $table, $minutes, $app);
         // });
+    }
+
+    protected function getDatabaseConnection()
+    {
+        // $connection = config('session.connection');
+
+        // return DB::connection($connection);
     }
 }

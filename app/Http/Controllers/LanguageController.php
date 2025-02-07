@@ -7,12 +7,19 @@ use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
-    public function languageSwitch(Request $request)
+    public function switchLocale(Request $request)
     {
-        $language = $request->input('language');
+        $locale = $request->locale;
 
-        session(['language' => $language]);
+        if (auth()->check()) {
+            /** @var User $user */
 
-        return redirect()->back()->with(['language_switched' => $language]);
+            $user = auth()->user();
+            $user->update(['language' => $locale]);
+        }
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+
+        return redirect()->back();
     }
 }

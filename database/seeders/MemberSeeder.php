@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class MemberSeeder extends Seeder
 {
@@ -13,6 +15,11 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        Member::factory(100)->create();
+        User::create([
+            'username' => 'member',
+            'password' => Hash::make('kontolodon'),
+            'status' => 'teacher',
+            'gender' => 'male'
+        ]);
     }
 }

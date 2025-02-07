@@ -28,7 +28,6 @@ use lockscreen\FilamentLockscreen\Http\Middleware\LockerTimer;
 use \TomatoPHP\FilamentSettingsHub\FilamentSettingsHubPlugin;
 use GeoSot\FilamentEnvEditor\FilamentEnvEditorPlugin;
 use Awcodes\LightSwitch\LightSwitchPlugin;
-use Awcodes\Palette\Forms\Components\ColorPicker;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Hasnayeen\Themes\ThemesPlugin;
 use IbrahimBougaoua\FilaSortable\FilaSortablePlugin;
@@ -43,6 +42,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->databaseNotifications()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -86,7 +86,8 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 // LockerTimer::class,
-                SetTheme::class
+                SetTheme::class,
+                'admin'
             ])
             ->authMiddleware([
                 Authenticate::class,

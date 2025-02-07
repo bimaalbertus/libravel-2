@@ -6,6 +6,7 @@ export default {
     presets: [preset],
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+        "./vendor/masmerise/livewire-toaster/resources/views/*.blade.php",
         "./vendor/**/*.blade.php",
         "./vendor/filament/**/*.blade.php",
         "./vendor/awcodes/palette/resources/views/**/*.blade.php",
@@ -53,7 +54,7 @@ export default {
                     secondary: "#1E90FF",
                     "secondary-variant": "#FFC107",
                     "btn-primary": "#bb86fc",
-                    bg: "#030806",
+                    bg: "#09090B",
                     "bg-secondary": "#1f1f1f",
                     surface: "rgba(255, 255, 255, 0.1)",
                     error: "#cf6679",

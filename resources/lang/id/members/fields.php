@@ -2,7 +2,7 @@
 
 return [
     'page' => [
-        'title' => 'Anggota'
+        'title' => 'Pengguna'
     ],
     'fields' => [
         'fullname' => 'Nama Asli',
@@ -10,7 +10,8 @@ return [
         'password' => 'Kata Sandi',
         'status' => [
             'student' => 'Murid',
-            'teacher' => 'Guru'
+            'teacher' => 'Guru',
+            'admin' => 'Admin'
         ],
         'gender' => [
             'label' => 'Jenis Kelamin',

@@ -29,15 +29,15 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Geologi Pertambangan', 'abbreviation' => 'gp'],
         ]);
 
-        $filamentMakeUserCommand = new FilamentMakeUserCommand();
-        $reflector = new \ReflectionObject($filamentMakeUserCommand);
-
-        $getUserModel = $reflector->getMethod('getUserModel');
-        $getUserModel->setAccessible(true);
-        $getUserModel->invoke($filamentMakeUserCommand)::create([
-            'name' => env('ADMIN_NAME', 'Main Admin'),
-            'email' => env('ADMIN_EMAIL', 'admin@example.com'),
-            'password' => Hash::make(env('ADMIN_PASSWORD', 'admin')),
+        $this->call([
+            AdminSeeder::class,
+            AuthorSeeder::class,
+            GenreSeeder::class,
+            BookSeeder::class,
+            BookRelationSeeder::class,
+            BannerSeeder::class,
+            MemberSeeder::class,
+            SettingSeeder::class
         ]);
     }
 }
