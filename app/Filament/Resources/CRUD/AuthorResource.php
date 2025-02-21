@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class AuthorResource extends Resource
 {
@@ -19,6 +20,11 @@ class AuthorResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $recordTitleAttribute = 'number';
     protected static ?int $navigationSort = 1;
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return AuthorResource::getUrl('view', ['record' => $record]);
+    }
 
     public static function form(Form $form): Form
     {

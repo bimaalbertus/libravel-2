@@ -18,6 +18,21 @@ export default {
     darkMode: "class",
     theme: {
         extend: {
+            animation: {
+                "infinite-scroll": "infinite-scroll 25s linear infinite",
+                "infinite-scroll-backward":
+                    "infinite-scroll-backward 25s linear infinite",
+            },
+            keyframes: {
+                "infinite-scroll": {
+                    from: { transform: "translateX(0)" },
+                    to: { transform: "translateX(-100%)" },
+                },
+                "infinite-scroll-backward": {
+                    from: { transform: "translateX(-100%)" },
+                    to: { transform: "translateX(0)" },
+                },
+            },
             fontFamily: {
                 "product-sans": ["Product Sans", "sans-serif"],
                 "sf-pro-display": ["SF Pro Display", "sans-serif"],
@@ -29,44 +44,135 @@ export default {
                 fenix: ["Fenix", "serif"],
                 "albert-sans": ["Albert Sans", "serif"],
                 "jersey-15": ["'Jersey 15'", "serif"],
+                manrope: ["Manrope", "sans-serif"],
+                "natural-precision": ["Natural Precision", "sans-serif"],
+                lovan: ["Lovan", "sans-serif"],
+                geist: ["Geist", "serif"],
             },
             colors: {
                 light: {
-                    primary: "#FF6B6B",
-                    "primary-variant": "#1E90FF",
-                    secondary: "#4ECDC4",
-                    "secondary-variant": "#FFC107",
-                    "btn-primary": "#02F67C",
-                    bg: "#F1F5F9",
-                    "bg-secondary": "#F5F5F5",
-                    surface: "rgba(0, 0, 0, 0.1)",
-                    error: "#b00020",
-                    "on-primary": "#fff",
-                    "on-secondary": "#000",
-                    "on-bg": "#222222",
-                    "on-bg-secondary": "#555555",
-                    "on-surface": "#000",
-                    "on-error": "#fff",
+                    primary: {
+                        DEFAULT: "#B89C7D",
+                        variant: "#D4BFA6",
+                    },
+                    secondary: {
+                        DEFAULT: "#8CA6BD",
+                        variant: "#B1C6D8",
+                    },
+                    accent: {
+                        primary: "#E8986A",
+                        secondary: "#64C5AA",
+                    },
+                    bg: {
+                        primary: "#F7F3EB",
+                        secondary: "#EDE6DA",
+                        tertiary: "#FBFAF7",
+                    },
+                    text: {
+                        primary: "#2B2924",
+                        secondary: "#5F5B52",
+                        tertiary: "#8E8A80",
+                    },
+                    btn: {
+                        primary: "#7A5D3F",
+                        secondary: "#E9E2D6",
+                        tertiary: "#F7F3EB",
+                    },
                 },
+
                 dark: {
-                    primary: "#FF6B6B",
-                    "primary-variant": "#4ECDC4",
-                    secondary: "#1E90FF",
-                    "secondary-variant": "#FFC107",
-                    "btn-primary": "#bb86fc",
-                    bg: "#09090B",
-                    "bg-secondary": "#1f1f1f",
-                    surface: "rgba(255, 255, 255, 0.1)",
-                    error: "#cf6679",
-                    "on-primary": "#22272B",
-                    "on-secondary": "#000",
-                    "on-bg": "#fff",
-                    "on-bg-secondary": "#bbbbbb",
-                    "on-surface": "#fff",
-                    "on-error": "#000",
+                    primary: {
+                        DEFAULT: "#7A5D3F",
+                        variant: "#9B7B5B",
+                    },
+                    secondary: {
+                        DEFAULT: "#465A69",
+                        variant: "#6A8197",
+                    },
+                    accent: {
+                        primary: "#C76D43",
+                        secondary: "#3E8C75",
+                    },
+                    bg: {
+                        primary: "#1A1814",
+                        secondary: "#252220",
+                        tertiary: "#302D29",
+                    },
+                    text: {
+                        primary: "#F0EBE2",
+                        secondary: "#CBC3B6",
+                        tertiary: "#9A9287",
+                    },
+                    btn: {
+                        primary: "#B89C7D",
+                        secondary: "#38342E",
+                        tertiary: "#1A1814",
+                    },
                 },
             },
         },
     },
     plugins: [],
 };
+
+// alternate pallete
+/** light: {
+                    primary: {
+                        DEFAULT: "#5E5CE6", // Ungu-biru lebih netral
+                        variant: "#7B7AEF", // Ungu-biru lebih terang
+                    },
+                    secondary: {
+                        DEFAULT: "#FF7D60", // Coral netral
+                        variant: "#FF9983", // Coral lebih terang
+                    },
+                    accent: {
+                        primary: "#FF9773", // Peach/coral
+                        secondary: "#3DD5B0", // Teal netral
+                    },
+                    bg: {
+                        primary: "#FAFAFA", // Putih netral
+                        secondary: "#F5F5F7", // Abu-abu sangat terang
+                        tertiary: "#FFFFFF", // Putih murni
+                    },
+                    text: {
+                        primary: "#1F1F1F", // Hitam netral
+                        secondary: "#4D4D4D", // Abu-abu gelap netral
+                        tertiary: "#808080", // Abu-abu medium netral
+                    },
+                    btn: {
+                        primary: "#5E5CE6", // Sama dengan primary
+                        secondary: "#F5F5F7", // Abu-abu sangat terang
+                        tertiary: "#FAFAFA", // Putih netral
+                    },
+                },
+
+                dark: {
+                    primary: {
+                        DEFAULT: "#6D6AEF", // Ungu-biru terang
+                        variant: "#8A88F2", // Ungu-biru sangat terang
+                    },
+                    secondary: {
+                        DEFAULT: "#FF8D73", // Coral terang
+                        variant: "#FFAB98", // Coral sangat terang
+                    },
+                    accent: {
+                        primary: "#FFA78C", // Peach terang
+                        secondary: "#4EEAC0", // Teal terang
+                    },
+                    bg: {
+                        primary: "#121212", // Hitam netral
+                        secondary: "#1E1E1E", // Abu-abu sangat gelap
+                        tertiary: "#2A2A2A", // Abu-abu gelap
+                    },
+                    text: {
+                        primary: "#F5F5F5", // Putih netral
+                        secondary: "#D4D4D4", // Abu-abu terang
+                        tertiary: "#9E9E9E", // Abu-abu medium
+                    },
+                    btn: {
+                        primary: "#6D6AEF", // Sama dengan primary
+                        secondary: "#1E1E1E", // Abu-abu sangat gelap
+                        tertiary: "#121212", // Hitam netral
+                    },
+                },
+ */

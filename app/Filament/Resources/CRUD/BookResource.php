@@ -23,6 +23,7 @@ use Filament\Infolists\Infolist;
 use Filament\Infolists\Components;
 use Filament\Pages\Page;
 use Filament\Pages\SubNavigationPosition;
+use Illuminate\Database\Eloquent\Model;
 
 class BookResource extends Resource
 {
@@ -31,13 +32,18 @@ class BookResource extends Resource
     protected static ?string $slug = 'crud/book';
     protected static ?string $navigationGroup = 'CRUD';
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-    protected static ?string $recordTitleAttribute = 'number';
+    protected static ?string $recordTitleAttribute = 'title';
     protected static ?int $navigationSort = 1;
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getLabel(): string
     {
         return __('book/fields.page.title');
+    }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return BookResource::getUrl('view', ['record' => $record]);
     }
 
     public static function form(Form $form): Form
@@ -199,11 +205,6 @@ class BookResource extends Resource
 
                 TextColumn::make('release_date')
                     ->label(__('book/fields.label.status.release_date.label'))
-                    ->date('Y-m-d')
-                    ->sortable(),
-
-                TextColumn::make('created_at')
-                    ->label(__('book/fields.label.status.created_at.label'))
                     ->date('Y-m-d')
                     ->sortable(),
             ])

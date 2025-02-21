@@ -73,8 +73,6 @@ class PageSettingsResource extends Resource
     {
         return [
             'index' => Pages\ListPageSettings::route('/'),
-            'create' => Pages\CreatePageSettings::route('/create'),
-            'edit' => Pages\EditPageSettings::route('/{record}/edit'),
         ];
     }
 }

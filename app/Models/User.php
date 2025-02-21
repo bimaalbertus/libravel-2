@@ -30,7 +30,8 @@ class User extends Authenticatable implements FilamentUser, HasName
         'status',
         'gender',
         'major',
-        'language'
+        'language',
+        'delete_request_at',
     ];
 
     /**
@@ -89,5 +90,15 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function majors()
     {
         return $this->belongsTo(Major::class, 'major', 'abbreviation');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(UserMessage::class);
+    }
+
+    public function latestMessage()
+    {
+        return $this->hasOne(UserMessage::class)->latestOfMany();
     }
 }

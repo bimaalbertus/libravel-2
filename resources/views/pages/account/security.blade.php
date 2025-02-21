@@ -20,8 +20,9 @@
         </div>
 
         <div class="flex flex-col gap-8 p-4 md:w-3/4">
-            <div class="flex flex-col border bg-white dark:bg-black/40 border-black/30 dark:border-white/30 rounded-lg">
-                <div class="py-4 px-6">
+            <div
+                class="flex flex-col w-full border bg-white dark:bg-black/40 border-black/30 dark:border-white/30 rounded-lg">
+                <div class="w-full py-4 px-6">
                     <h2 class="font-bold text-xl mb-4">{{ __('profile.delete_account') }}</h2>
                     <p class="text-sm">{{ __('profile.delete_account_description') }}</p>
                 </div>

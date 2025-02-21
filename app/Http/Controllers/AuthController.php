@@ -15,6 +15,11 @@ class AuthController extends Controller
         return view('pages.login');
     }
 
+    public function settings()
+    {
+        return view('pages.account.settings');
+    }
+
     public function security()
     {
         return view('pages.account.security');

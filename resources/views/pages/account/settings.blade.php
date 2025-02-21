@@ -24,14 +24,7 @@
                 @if ($user->status === 'admin')
                     <livewire:username-update />
                 @else
-                    <div class="py-4 px-6">
-                        <h2 class="font-bold text-xl mb-4">{{ __('profile.username') }}</h2>
-                        <p class="text-sm">{{ __('profile.username_description') }}</p>
-                        <div
-                            class="flex justify-start items-center w-96 h-10 mt-4 p-2.5 border border-black/30 dark:border-white/30 rounded-md text-sm">
-                            <span>{{ $user->username }}</span>
-                        </div>
-                    </div>
+                    <livewire:username-request />
                 @endif
             </div>
 
@@ -40,9 +33,7 @@
             </div>
 
             <div class="flex flex-col border bg-white dark:bg-black/40 border-black/30 dark:border-white/30 rounded-lg">
-                <div class="py-4 px-6">
-                    @include('pages.account.components.browser-sessions', ['sessions' => $sessions])
-                </div>
+                <livewire:browser-sessions />
             </div>
         </div>
     </section>

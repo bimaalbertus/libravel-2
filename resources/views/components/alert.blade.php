@@ -10,15 +10,15 @@
 @php
     $colors = [
         'success' =>
-            'bg-light-bg dark:bg-dark-bg border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300',
+            'bg-light-bg-secondary dark:bg-dark-bg-secondary border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300',
         'error' =>
-            'bg-light-bg dark:bg-dark-bg border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300',
+            'bg-light-bg-secondary dark:bg-dark-bg-secondary border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300',
         'warning' =>
-            'bg-light-bg dark:bg-dark-bg border border-yellow-200 dark:border-yellow-800 text-yellow-700 dark:text-yellow-300',
+            'bg-light-bg-secondary dark:bg-dark-bg-secondary border border-yellow-200 dark:border-yellow-800 text-yellow-700 dark:text-yellow-300',
         'info' =>
-            'bg-light-bg dark:bg-dark-bg border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300',
+            'bg-light-bg-secondary dark:bg-dark-bg-secondary border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300',
         'neutral' =>
-            'bg-light-bg dark:bg-dark-bg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300',
+            'bg-light-bg-secondary dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300',
     ];
 
     $icons = [

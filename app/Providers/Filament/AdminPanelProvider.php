@@ -4,6 +4,8 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Dashboard;
 use App\Filament\Pages\Gallery;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\Authenticate as MiddlewareAuthenticate;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,8 +30,11 @@ use lockscreen\FilamentLockscreen\Http\Middleware\LockerTimer;
 use \TomatoPHP\FilamentSettingsHub\FilamentSettingsHubPlugin;
 use GeoSot\FilamentEnvEditor\FilamentEnvEditorPlugin;
 use Awcodes\LightSwitch\LightSwitchPlugin;
+use CharrafiMed\GlobalSearchModal\GlobalSearchModalPlugin;
+use Filament\Support\Enums\Platform;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Hasnayeen\Themes\ThemesPlugin;
+use Hydrat\TableLayoutToggle\TableLayoutTogglePlugin;
 use IbrahimBougaoua\FilaSortable\FilaSortablePlugin;
 use Solutionforest\FilamentScaffold\FilamentScaffoldPlugin;
 
@@ -41,8 +46,13 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
             ->databaseNotifications()
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+            ->globalSearchFieldSuffix(fn(): ?string => match (Platform::detect()) {
+                Platform::Windows, Platform::Linux => 'CTRL+K',
+                Platform::Mac => '⌘K',
+                default => null,
+            })
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -73,7 +83,8 @@ class AdminPanelProvider extends PanelProvider
                 LightSwitchPlugin::make(),
                 FilaSortablePlugin::make(),
                 ThemesPlugin::make(),
-                FilamentScaffoldPlugin::make()
+                FilamentScaffoldPlugin::make(),
+                GlobalSearchModalPlugin::make()
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -87,7 +98,8 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 // LockerTimer::class,
                 SetTheme::class,
-                'admin'
+                AdminMiddleware::class,
+                MiddlewareAuthenticate::class
             ])
             ->authMiddleware([
                 Authenticate::class,

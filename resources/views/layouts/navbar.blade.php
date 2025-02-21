@@ -1,6 +1,6 @@
-<div x-data="{ navbarOpen: false }" class="z-40">
+<div x-data="{ navbarOpen: false }" class="z-[100]">
     <nav
-        class="fixed w-full flex items-center justify-between h-14 p-4 md:py-8 lg:px-32 font-euclid-circular-b z-40 bg-light-bg dark:bg-dark-bg">
+        class="fixed w-full flex items-center justify-between h-14 p-4 md:py-8 lg:px-32 font-euclid-circular-b z-[100] bg-light-bg-primary dark:bg-dark-bg-primary">
 
         <x-nav-link />
 
@@ -8,12 +8,6 @@
             {!! $user->getAvatar(40, 'circle') !!}
         </span>
         <div class="hidden md:flex items-center gap-4">
-            @if (!$user)
-                <a href="/auth/login">
-                    <span
-                        class="uppercase text-xs text-neutral-400 p-2 hover:bg-black/10 hover:dark:bg-white/10 rounded-md transition duration-200 ease-in-out">{{ __('pages/login.title') }}</span>
-                </a>
-            @endif
             <div x-data="{ isOpen: false }" class="relative flex items-center">
                 <button @click="isOpen = !isOpen" class="inline-flex items-center">
                     @if (!$user)
@@ -31,7 +25,7 @@
                     x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95"
                     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
                     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                    class="absolute top-14 right-0 w-64 rounded-lg bg-white dark:bg-[#1e1e1e] border border-[#FFFFFF33] ring-1 ring-black ring-opacity-5 z-50 text-sm font-figtree divide-y divide-neutral-600">
+                    class="absolute top-14 right-0 w-64 rounded-lg bg-light-bg-secondary dark:bg-dark-bg-secondary border border-[#FFFFFF33] ring-1 ring-black ring-opacity-5 z-50 text-sm font-figtree divide-y divide-neutral-600">
                     @if ($user)
                         <div
                             class="flex flex-col px-4 py-2 font-euclid-circular-b border-b border-black/10 dark:border-white/20">
@@ -46,14 +40,14 @@
                         @if ($user)
                             @if ($user->status === 'admin')
                                 <div class="py-2 px-2">
-                                    <a href="/admin"
-                                        class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-primary rounded-lg dark:hover:bg-dark-secondary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.dashboard') }}<i
+                                    <a href="{{ route('filament.admin.pages.dashboard') }}"
+                                        class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.dashboard') }}<i
                                             class="ti ti-brand-tabler mt-1 text-lg"></i></a>
                                 </div>
                             @endif
                             <div class="py-2 px-2">
                                 <a href="/settings/account"
-                                    class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-primary rounded-lg dark:hover:bg-dark-secondary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.profile') }}<i
+                                    class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.profile') }}<i
                                         class="ti ti-user-circle mt-1 text-lg"></i></a>
                             </div>
                         @endif
@@ -71,7 +65,7 @@
                             <form action="{{ route('auth.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit"
-                                    class="inline-flex items-center justify-between w-full gap-2 cursor-pointer py-2 px-2 hover:bg-light-primary rounded-lg dark:hover:bg-dark-secondary hover:text-white transition-all duration-100">
+                                    class="inline-flex items-center justify-between w-full gap-2 cursor-pointer py-2 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">
                                     <span>{{ __('navigation/navigation.menus.signout') }}</span>
                                     <i class="ti ti-logout mt-1 text-lg"></i>
                                 </button>
@@ -84,7 +78,7 @@
     </nav>
 
     <div class="block lg:hidden">
-        <x-modal open="navbarOpen" position="bottom" :closeIcon="false" blur="none">
+        <x-modal open="navbarOpen" position="bottom" :closeIcon="false" blur="none" :zIndex="50">
             <div
                 class="flex flex-col justify-start pt-20 gap-4 w-screen overflow-hidden bg-light-bg dark:bg-dark-bg text-base text-black/50 dark:text-white/50 font-figtree h-screen p-4">
                 @if ($user)
@@ -102,13 +96,13 @@
                         @if ($user->status === 'admin')
                             <li class="py-2">
                                 <a href="/admin"
-                                    class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-primary rounded-lg dark:hover:bg-dark-secondary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.dashboard') }}<i
+                                    class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.dashboard') }}<i
                                         class="ti ti-brand-tabler mt-1 text-lg"></i></a>
                             </li>
                         @endif
                         <li class="py-2">
                             <a href="/settings/account"
-                                class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-primary rounded-lg dark:hover:bg-dark-secondary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.profile') }}<i
+                                class="inline-flex items-center justify-between w-full gap-2 py-2 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.profile') }}<i
                                     class="ti ti-user-circle mt-1 text-lg"></i></a>
                         </li>
                         <li class="py-2">
@@ -128,7 +122,7 @@
                                 <form action="{{ route('auth.logout') }}" method="POST">
                                     @csrf
                                     <button type="submit"
-                                        class="inline-flex items-center justify-between w-full gap-2 cursor-pointer py-2 px-2 hover:bg-light-primary rounded-lg dark:hover:bg-dark-secondary hover:text-white transition-all duration-100">
+                                        class="inline-flex items-center justify-between w-full gap-2 cursor-pointer py-2 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">
                                         <span>{{ __('navigation/navigation.menus.signout') }}</span>
                                         <i class="ti ti-logout mt-1 text-lg"></i>
                                     </button>

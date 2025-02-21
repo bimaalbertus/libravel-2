@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
 
@@ -15,7 +16,7 @@ class UsernameUpdate extends Component
 
     public function mount()
     {
-        $this->username = auth()->user()->username;
+        $this->username = Auth::user()->username;
     }
 
     public function updated($propertyName)
@@ -26,9 +27,11 @@ class UsernameUpdate extends Component
     public function save()
     {
         $this->validate();
+        /** @var User $user */
+        $user = Auth::user();
 
         $existingUser = \App\Models\User::where('username', $this->username)
-            ->where('id', '!=', auth()->user()->id)
+            ->where('id', '!=', $user->id)
             ->first();
 
         if ($existingUser) {
@@ -36,7 +39,7 @@ class UsernameUpdate extends Component
             return;
         }
 
-        auth()->user()->update([
+        $user->update([
             'username' => $this->username
         ]);
 

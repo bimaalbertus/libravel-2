@@ -19,8 +19,7 @@ Route::prefix('auth')->name('auth.')->middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
-Route::prefix('settings')->name('settings.')->middleware(['auth', HandlePrecognitiveRequests::class])->group(function () {
-    Route::get('/account', [SessionController::class, 'index'])->name('account');
+Route::prefix('settings')->name('settings.')->middleware(['authenticate', HandlePrecognitiveRequests::class])->group(function () {
+    Route::get('/account', [AuthController::class, 'settings'])->name('account');
     Route::get('/security', [AuthController::class, 'security'])->name('security');
-    Route::post('/browser-sessions/logout-other', [SessionController::class, 'destroy'])->name('logout-other');
 });

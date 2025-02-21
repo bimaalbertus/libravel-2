@@ -12,13 +12,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') {{ config('app.name') }}</title>
     @yield('style')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles()
     @livewireScripts()
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 </head>
 
-<body class="bg-light-bg dark:bg-dark-bg text-light-on-bg dark:text-dark-on-bg scroll-smooth font-euclid-circular-b">
+<body
+    class="bg-light-bg-primary dark:bg-dark-bg-primary text-light-text-primary dark:text-dark-text-primary scroll-smooth font-euclid-circular-b">
 
     @if ($nav)
         @include('layouts.navbar')

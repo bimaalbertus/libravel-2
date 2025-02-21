@@ -32,8 +32,6 @@ class FullnameUpdate extends Component
         ]);
 
         Toaster::success(__('profile.saved_successfully'));
-
-        return redirect()->route('settings.account');
     }
 
     public function render()

@@ -4,10 +4,23 @@ return [
     'home' => 'Home',
     'browse' => [
         'title' => 'Browse',
-        'subject' => 'Subject',
-        'trending' => 'Trending',
-        'random_books' => 'Random Books',
-        'genre' => 'Genre',
+        'subtitle' => 'Quick Links',
+        'subject' => [
+            'label' => 'Subject',
+            'desc' => 'Browse educational books by subject.'
+        ],
+        'trending' => [
+            'label' => 'Trending',
+            'desc' => 'Discover the most popular books at the moment.'
+        ],
+        'random_books' => [
+            'label' => 'Random Books',
+            'desc' => 'Let the system pick a random book for you.'
+        ],
+        'genre' => [
+            'label' => 'Genre',
+            'desc' => 'Explore books by their genre and find your favorites.'
+        ],
     ],
     'about' => 'About Us',
     'github' => 'Our Github',
