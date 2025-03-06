@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('href')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
+            $table->boolean('image_only')->default(false);
             $table->timestamps();
         });
     }

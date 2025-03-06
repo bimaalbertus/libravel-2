@@ -16,10 +16,10 @@ class MemberSeeder extends Seeder
     public function run(): void
     {
         User::create([
+            'fullname' => 'Member',
             'username' => 'member',
             'password' => Hash::make('kontolodon'),
-            'status' => 'teacher',
-            'gender' => 'male'
+            'status' => 'student',
         ]);
     }
 }

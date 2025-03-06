@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('publishers', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary()->unique();
             $table->string('name');
+            $table->string('slug')->unique();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

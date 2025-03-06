@@ -23,6 +23,8 @@ class MemberResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort = 2;
 
+    public $userClass;
+
     public static function getLabel(): string
     {
         return __('members/fields.page.title');
@@ -70,7 +72,6 @@ class MemberResource extends Resource
                 Forms\Components\Select::make('status')
                     ->label('Status')
                     ->options([
-                        'admin' => 'Admin',
                         'teacher' => __('members/fields.fields.status.teacher'),
                         'student' => __('members/fields.fields.status.student')
                     ])
@@ -102,19 +103,20 @@ class MemberResource extends Resource
                     ->sortable()
                     ->color(fn($record) => $record->delete_request_at ? 'danger' : 'white'),
                 Tables\Columns\TextColumn::make('status')
-                    ->formatStateUsing(fn($state) => __("members/fields.fields.status.{$state}"))
-                    ->color(fn($state) => $state === 'admin' ? 'success' : 'info'),
+                    ->formatStateUsing(fn($state) => __("members/fields.fields.status.{$state}")),
                 Tables\Columns\TextColumn::make('gender')
                     ->formatStateUsing(fn($state) => __("members/fields.fields.gender.{$state}")),
                 Tables\Columns\TextColumn::make('major')
                     ->label(__('members/fields.fields.major'))
                     ->formatStateUsing(fn($state) => strtoupper($state)),
+                Tables\Columns\ToggleColumn::make('is_admin')
+                    ->label('admin')
+                    ->disabled(fn($record) => $record->id === 1),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Status')
                     ->options([
-                        'admin' => 'Admin',
                         'teacher' => __('members/fields.fields.status.teacher'),
                         'student' => __('members/fields.fields.status.student')
                     ]),

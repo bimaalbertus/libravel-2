@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'page' => [
+        'account_settings' => 'Pengaturan Akun',
+        'account_security' => 'Keamanan Akun',
+    ],
     'title' => 'Edit Profil',
     'fullname' => 'Nama Lengkap',
     'fullname_description' => 'Masukkan nama lengkap Anda, atau nama tampilan yang Anda sukai.',
@@ -24,7 +28,8 @@ return [
     'ensure_your_password' => 'Pastikan akun Anda menggunakan kata sandi yang panjang dan acak untuk keamanan.',
     'save' => 'Simpan',
     'notify_admin' => 'Beritahu Admin',
-    'delete_account' => 'Ajukan Penghapusan Akun',
+    'delete_account' => 'Hapus Akun Anda',
+    'request_delete_account' => 'Ajukan Penghapusan Akun',
     'cancel' => 'Batal',
     'delete_account_description' => 'Hapus akun Anda secara permanen.',
     'yes_delete_it' => 'Ya, hapus!',
@@ -50,4 +55,8 @@ return [
     'account_deletion_request_sent' => 'Permintaan penghapusan akun telah dikirim ke admin.',
     'user_account_deletion_request' => 'Pengguna **:username** meminta penghapusan akunnya. Username baru yang diminta: **:reason**',
     'account_deletion_request_already_exists' => 'Anda sudah mengajukan permintaan penghapusan akun.',
+    'login_success' => 'Anda telah berhasil masuk!',
+    'cannot_delete_last_admin' => 'Akun tidak dapat dihapus karena Anda adalah satu-satunya admin.',
+    'main_admin_cannot_delete' => 'Akun admin utama tidak bisa dihapus.',
+    'your_account_deleted_successfully' => 'Akun Anda telah berhasil dihapus.',
 ];

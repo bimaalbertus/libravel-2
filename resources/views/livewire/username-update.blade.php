@@ -10,7 +10,7 @@
         </div>
         <div class="flex w-full items-center justify-between py-4 px-6 border-t border-black/30 dark:border-white/30">
             <p class="text-sm text-black/50 dark:text-white/50">{{ __('profile.username_rule') }}</p>
-            <x-button type="submit" width="w-16" height="h-8" wire:target="save" wire:click="save">
+            <x-button type="submit" width="w-16" height="h-8">
                 {{ __('profile.save') }}
             </x-button>
         </div>

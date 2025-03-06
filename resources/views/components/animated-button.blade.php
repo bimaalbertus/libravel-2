@@ -16,13 +16,11 @@
     'rounded' => 'rounded-xl',
     'containerRounded' => 'rounded-lg',
     'fontSize' => 'text-xs',
-    'route' => null,
+    'href' => '',
+    'target' => '_self',
 ])
 
-@if ($route)
-    <a href="{{ $route }}">
-@endif
-<button
+<button @if (strlen($href) > 0) data-href="{{ $href }}" data-target="{{ $target }}" @endif
     {{ $attributes->merge([
         'class' => "hidden md:flex items-center overflow-hidden capitalize {$fontSize} font-{$fontWeight} {$bgColor} {$textColor} {$padding} {$hoverPadding} {$rounded} hover:shadow-xl group {$buttonWidth}",
     ]) }}>
@@ -35,19 +33,15 @@
                 class="inline-flex items-center justify-center text-2xl {{ $iconTextColor }} {{ $iconBgColor }} p-1 {{ $containerRounded }}">
                 <i class="ti {{ $icon }}"></i>
             </span>
-            <span>{{ $name }}</span>
+            <span class="text-center">{{ $name }}</span>
         </div>
 
         <!-- Content that appears on hover -->
         <div
             class="absolute inset-0 flex items-center gap-2 transform {{ $reverseTranslateValue }} transition-transform duration-300 ease-in-out">
-            <span>{{ $name }}</span>
+            <span class="text-center">{{ $name }}</span>
         </div>
     </div>
 
     {{ $slot ?? '' }}
 </button>
-
-@if ($route)
-    </a>
-@endif

@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('authors', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary()->unique();
             $table->string('fullname')->nullable();
-            $table->string('profile_path')->nullable();
+            $table->string('slug')->unique();
+            $table->string('image_path')->nullable();
             $table->date('birthdate')->nullable();
             $table->date('deathdate')->nullable();
             $table->text('bio')->nullable();

@@ -2,7 +2,7 @@
     @if (!$user->messages()->where('type', 'delete_account')->where('status', 'pending')->exists())
         <x-button bg-color="bg-red-500" hover-color="hover:bg-red-600" text-color="text-white" width="w-52" height="h-8"
             @click="open = true" :loading="false">
-            {{ __('profile.delete_account') }}
+            {{ __('profile.request_delete_account') }}
         </x-button>
     @else
         <x-button bg-color="bg-red-600 opacity-50 cursor-not-allowed" hover-color="hover:bg-red-600"

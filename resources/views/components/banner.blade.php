@@ -6,26 +6,34 @@
     <div x-data="carousel({{ $banners->count() }})" x-init="init()" @mouseover="pauseAutoplay()" @mouseleave="resumeAutoplay()"
         class="relative w-full min-h-[540px] h-[40rem] md:h-[540px] group">
         @foreach ($banners as $index => $banner)
-            <div x-show="currentIndex === {{ $index }}" x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                class="absolute inset-0 w-full h-full flex items-center justify-center bg-cover bg-center bg-no-repeat rounded-2xl"
-                style='background-image: linear-gradient(transparent 0%, rgba(0, 0, 0) 100%), url("{{ $banner->getFirstMediaUrl('banners') ?? 'https://placehold.co/1280x720?text=No+Image+Available' }}");'
-                x-cloak>
-                @if ($banner->content)
-                    <div class="flex flex-col gap-2 absolute left-0 bottom-8 px-8 text-white"
-                        x-transition:enter="transition-opacity ease-out duration-500"
-                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                        x-transition:leave="transition-opacity ease-in duration-500"
-                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-                        <h1 class="text-2xl md:text-6xl font-bold uppercase font-subjectivity">
-                            {{ Str::limit($banner->title, 100) }}
-                        </h1>
-                        <p class="text-md max-w-3xl text-justify">{!! $banner->content !!}</p>
-                    </div>
-                @endif
-            </div>
+            @if ($banner->image_only)
+                <img x-show="currentIndex === {{ $index }}" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0" src="{{ $banner->getFirstMediaUrl('banners') }}"
+                    alt="{{ $banner->title }}" class="w-full h-full rounded-2xl">
+            @else
+                <div x-show="currentIndex === {{ $index }}" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    class="absolute inset-0 w-full h-full flex items-center justify-center bg-cover bg-center bg-no-repeat rounded-2xl"
+                    style='background-image: linear-gradient(transparent 0%, rgba(0, 0, 0) 100%), url("{{ $banner->getFirstMediaUrl('banners') ?? 'https://placehold.co/1280x720?text=No+Image+Available' }}");'
+                    x-cloak>
+                    @if ($banner->content)
+                        <div class="flex flex-col gap-2 absolute left-0 bottom-8 px-8 text-white"
+                            x-transition:enter="transition-opacity ease-out duration-500"
+                            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                            x-transition:leave="transition-opacity ease-in duration-500"
+                            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+                            <h1 class="text-2xl md:text-6xl font-bold uppercase font-subjectivity">
+                                {{ Str::limit($banner->title, 100) }}
+                            </h1>
+                            <p class="text-md max-w-3xl text-justify">{!! $banner->content !!}</p>
+                        </div>
+                    @endif
+                </div>
+            @endif
         @endforeach
 
         @if ($banners->count() > 1)

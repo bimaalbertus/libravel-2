@@ -30,7 +30,7 @@
                 <div class="flex flex-col gap-4 mt-4">
                     <x-input wire:model.defer="new_username" name="new_username" :error="$errors->first('new_username')" width="full"
                         label="{{ __('profile.new_username') }}" required />
-                    <x-textarea wire:model.defer="reason" name="reason" :error="$errors->first('reason')" width="full"
+                    <x-textarea wire:model.defer="reason" name="reason" :error="$errors->first('reason')" width="w-full"
                         label="{{ __('members/members-messages.fields.reason') }}" required />
                 </div>
             </x-slot>

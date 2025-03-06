@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('profile.page.account_settings') . ' -')
 
 @section('content')
     <h1 class="py-8 px-4 md:px-32 text-3xl font-medium">{{ __('profile.title') }}</h1>
@@ -21,7 +22,7 @@
 
         <div class="flex flex-col gap-8 p-4 md:w-3/4">
             <div class="flex flex-col border bg-white dark:bg-black/40 border-black/30 dark:border-white/30 rounded-lg">
-                @if ($user->status === 'admin')
+                @if ($user->isAdmin())
                     <livewire:username-update />
                 @else
                     <livewire:username-request />

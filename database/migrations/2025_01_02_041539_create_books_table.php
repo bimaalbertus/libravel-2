@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary()->unique();
             $table->string('title')->nullable();
             $table->string('slug')->unique();
             $table->text('synopsis')->nullable();
             $table->string('language')->nullable();
-            $table->string('cover_path')->nullable();
+            $table->string('image_path')->nullable();
             $table->integer('page_count')->nullable();
             $table->date('release_date')->nullable();
             $table->boolean('is_fiction')->nullable()->default(0);

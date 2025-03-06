@@ -75,7 +75,7 @@
             </p>
 
             <div class="mt-4">
-                <x-input type="text" wire:model.defer="password" name="password" :error="$errors->first('password')" width="full"
+                <x-input type="text" wire:model.defer="password" name="password" :error="$errors->first('password')" width="w-full"
                     label="Password" required />
             </div>
         </x-slot>

@@ -20,12 +20,14 @@ class BookFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->sentence(3);
+        $imagePath = 'https://placehold.co/600x400?text=' . urlencode($title);
+
         return [
             'title' => $title,
             'slug' => Str::slug($title),
-            'synopsis' => $this->faker->paragraph(),
+            'synopsis' => $this->faker->paragraph(3),
             'language' => $this->faker->randomElement(['en', 'id']),
-            'cover_path' => $this->faker->imageUrl(720, 1280, $title),
+            'image_path' => $imagePath,
             'page_count' => $this->faker->numberBetween(100, 1000),
             'release_date' => $this->faker->date(),
             'is_fiction' => $this->faker->boolean(),

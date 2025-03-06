@@ -31,13 +31,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AdminSeeder::class,
-            AuthorSeeder::class,
             GenreSeeder::class,
             BookSeeder::class,
-            BookRelationSeeder::class,
             BannerSeeder::class,
             MemberSeeder::class,
-            SettingSeeder::class
+            SettingSeeder::class,
+            AuthorSeeder::class,
+            BookRelationSeeder::class,
         ]);
     }
 }

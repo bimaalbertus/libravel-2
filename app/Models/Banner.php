@@ -19,14 +19,26 @@ class Banner extends Model implements HasMedia
         'is_active',
         'href',
         'start_date',
-        'end_date'
+        'end_date',
+        'image_only'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'image_only' => 'boolean',
         'start_date' => 'datetime',
         'end_date' => 'datetime'
     ];
+
+    public function isImageOnly(): bool
+    {
+        return $this->image_only;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
 
     public function scopeActive(Builder $query)
     {

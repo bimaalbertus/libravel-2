@@ -32,6 +32,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         'major',
         'language',
         'delete_request_at',
+        'is_admin'
     ];
 
     /**
@@ -55,12 +56,13 @@ class User extends Authenticatable implements FilamentUser, HasName
     {
         return [
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 
     public function isAdmin(): bool
     {
-        return $this->status === 'admin';
+        return $this->is_admin;
     }
 
 

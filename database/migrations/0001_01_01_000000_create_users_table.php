@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('fullname')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('status', ['admin', 'teacher', 'student', 'employee'])->nullable();
+            $table->enum('status', ['teacher', 'student', 'employee'])->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('major')->nullable();
             $table->string('language')->default('en');
             $table->date('delete_request_at')->nullable();
+            $table->boolean('is_admin')->default(false);
             $table->foreign('major')->references('abbreviation')->on('majors')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();

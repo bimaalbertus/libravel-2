@@ -76,8 +76,7 @@ class BannerResource extends Resource
                                                     ->imageCropAspectRatio('2.37:1')
                                                     ->disk('public')
                                                     ->directory('banners')
-                                                    ->visibility('public')
-                                                    ->required(),
+                                                    ->visibility('public'),
                                             ])
                                             ->columnSpan(2)
                                             ->collapsible(),
@@ -104,6 +103,10 @@ class BannerResource extends Resource
                             ->schema([
                                 Forms\Components\Section::make('Status')
                                     ->schema([
+                                        Forms\Components\Toggle::make('image_only')
+                                            ->label(__('banner/fields.labels.image_only.label'))
+                                            ->helperText(__('banner/fields.labels.image_only.desc'))
+                                            ->default(false),
                                         Forms\Components\Toggle::make('is_active')
                                             ->label(__('banner/fields.labels.is_active.label'))
                                             ->helperText(__('banner/fields.labels.is_active.desc'))
@@ -126,6 +129,8 @@ class BannerResource extends Resource
                     ->collection('banners'),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label(__('banner/fields.labels.is_active.label')),
+                Tables\Columns\ToggleColumn::make('image_only')
+                    ->label(__('banner/fields.labels.image_only.label')),
             ])
             ->filters([
                 // 

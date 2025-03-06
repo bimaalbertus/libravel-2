@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'page' => [
+        'account_settings' => 'Account Settings',
+        'account_security' => 'Account Security',
+    ],
     'title' => 'Edit Profile',
     'fullname' => 'Full Name',
     'fullname_description' => 'Please enter your full name, or a display name you are comfortable with.',
@@ -24,7 +28,8 @@ return [
     'ensure_your_password' => 'Ensure your account is using long, random password to stay secure.',
     'save' => 'Save',
     'notify_admin' => 'Notify Admin',
-    'delete_account' => 'Request Account Deletion',
+    'delete_account' => 'Delete Your Account',
+    'request_delete_account' => 'Request Account Deletion',
     'delete_account_description' => 'Permanently delete your account.',
     'cancel' => 'Cancel',
     'yes_delete_it' => 'Yes, delete it!',
@@ -50,4 +55,8 @@ return [
     'account_deletion_request_sent' => 'Account deletion request has been sent to admin.',
     'user_account_deletion_request' => 'User **:username** requested account deletion. New username requested: **:reason**',
     'account_deletion_request_already_exists' => 'You have already requested account deletion.',
+    'login_success' => 'You have successfully logged in!',
+    'cannot_delete_last_admin' => 'The account cannot be deleted because you are the only admin.',
+    'main_admin_cannot_delete' => 'The main admin account cannot be deleted.',
+    'your_account_deleted_successfully' => 'Your account has been deleted successfully.',
 ];

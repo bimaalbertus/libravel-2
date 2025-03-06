@@ -13,7 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
-use Filament\Forms\Components\{TextInput, DatePicker, FileUpload, RichEditor, Section, Grid, Tabs, Toggle, Select};
+use Filament\Forms\Components\{TextInput, DatePicker, FileUpload, RichEditor, Section, Grid, Tabs, Toggle, Select, SpatieMediaLibraryFileUpload};
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Tables\Columns\{TextColumn,  IconColumn, ImageColumn};
 use Filament\Tables\Filters\Filter;
@@ -21,6 +21,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Pages\Page;
 use Filament\Pages\SubNavigationPosition;
 use Illuminate\Database\Eloquent\Model;
@@ -68,9 +69,7 @@ class BookResource extends Resource
                                                     ->label(__('book/fields.label.slug'))
                                                     ->disabled()
                                                     ->dehydrated()
-                                                    ->required()
-                                                    ->maxLength(255)
-                                                    ->unique(Book::class, 'slug', ignoreRecord: true),
+                                                    ->maxLength(255),
                                             ]),
                                         RichEditor::make('synopsis')
                                             ->label(__('book/fields.label.synopsis'))
@@ -86,24 +85,17 @@ class BookResource extends Resource
                                             ->tabs([
                                                 Tab::make(__('book/fields.label.image.upload.label'))
                                                     ->schema([
-                                                        FileUpload::make('uploaded_image')
+                                                        SpatieMediaLibraryFileUpload::make('uploaded_image')
                                                             ->label(__('book/fields.label.image.upload.label'))
                                                             ->image()
-                                                            ->directory('assets/cover_path')
+                                                            ->collection('books')
+                                                            ->directory('assets/books')
                                                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
                                                             ->maxSize(2048)
-                                                            ->afterStateUpdated(function ($state, callable $set, $record) {
-                                                                if ($state && $record) {
-                                                                    $media = $record->addMedia($state->getRealPath())
-                                                                        ->toMediaCollection('cover_images');
-
-                                                                    $set('cover_path', $media->getUrl());
-                                                                }
-                                                            })
                                                     ]),
                                                 Tab::make(__('book/fields.label.image.insert.label'))
                                                     ->schema([
-                                                        TextInput::make('cover_path')
+                                                        TextInput::make('image_path')
                                                             ->label(__('book/fields.label.image.insert.desc'))
                                                             ->placeholder('https://example.com/image.jpg')
                                                             ->url()
@@ -183,7 +175,7 @@ class BookResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('cover_path')
+                ImageColumn::make('image_path')
                     ->label(__('book/fields.label.image.insert.label')),
 
                 TextColumn::make('title')
@@ -329,11 +321,17 @@ class BookResource extends Resource
                                     ]),
                                 ]),
 
-                            Components\ImageEntry::make('cover_path')
+                            Components\ImageEntry::make('image_path')
                                 ->hiddenLabel()
                                 ->width(200)
                                 ->height(300)
                                 ->grow(false),
+                            SpatieMediaLibraryImageEntry::make('image_path')
+                                ->collection('books')
+                                ->hiddenLabel()
+                                ->width(200)
+                                ->height(300)
+                                ->grow(false)
                         ])->from('lg'),
                     ]),
 

@@ -71,7 +71,7 @@
             <div x-show="{{ $open }}"
                 x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity"
                 x-transition:enter-start="opacity-0 scale-110" x-transition:enter-end="opacity-100 scale-100"
-                class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-lg bg-light-bg dark:bg-dark-bg border border-black/40 dark:border-white/40">
+                class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-lg bg-light-bg-secondary dark:bg-dark-bg-secondary border border-black/40 dark:border-white/40">
 
                 <!-- Dialog Header (Optional) -->
                 @if ($header)
@@ -106,8 +106,8 @@
     @break
 
     @default
-        <div x-init="$watch('{{ $open }}', value => { document.body.classList.toggle('overflow-hidden', value) })" x-show="{{ $open }}" x-cloak
-            class="fixed inset-0 flex justify-center {{ $positionClass }}" style="z-index: {{ $zIndexBase }}" @if ($closeOnEsc)
+        <div x-init="$watch('{{ $open }}', value => { document.body.classList.toggle('overflow-hidden', value) })" x-show="{{ $open }}" x-cloak {!! $attributes->merge(['class' => "fixed inset-0 flex justify-center $positionClass"]) !!}
+            style="z-index: {{ $zIndexBase }}" @if ($closeOnEsc)
             @keydown.escape.window="{{ $open }} = false"
             @endif
             >
@@ -116,13 +116,13 @@
                 x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                 @if ($closeOnClickOutside) @click="{{ $open }} = false" @endif
-                class="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/75 {{ $blurClass }}"
+                class="fixed inset-0 bg-neutral-500/75 dark:bg-neutral-900/75 {{ $blurClass }}"
                 style="z-index: {{ $zIndexBackdrop }}"></div>
 
             {{-- Close Icon --}}
             @if ($closeIcon)
                 <button @click="{{ $open }} = false"
-                    class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 transition-colors"
+                    class="absolute right-4 top-4 text-neutral-400 hover:text-neutral-500 dark:text-neutral-500 dark:hover:text-neutral-400 transition-colors"
                     style="z-index: {{ $zIndexClose }}">
                     <span class="sr-only">Close</span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
