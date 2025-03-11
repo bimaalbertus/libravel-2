@@ -30,8 +30,96 @@ class AuthorResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required(),
+                Forms\Components\Grid::make()
+                    ->schema([
+                        Forms\Components\Grid::make()
+                            ->schema([
+                                Forms\Components\Section::make()
+                                    ->schema([
+                                        Forms\Components\Grid::make()
+                                            ->schema([
+                                                Forms\Components\TextInput::make('fullname')
+                                                    ->label(__('profile.fullname'))
+                                                    ->required()
+                                                    ->live(onBlur: true)
+                                                    ->maxLength(255)
+                                                    ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null),
+                                                Forms\Components\TextInput::make('slug')
+                                                    ->label(__('book/fields.label.slug'))
+                                                    ->disabled()
+                                                    ->dehydrated()
+                                                    ->maxLength(255),
+                                            ]),
+                                        Forms\Components\RichEditor::make('bio')
+                                            ->label(ucfirst(__('author.bio')))
+                                            ->columnSpan('full')
+                                            ->maxLength(65535),
+                                    ])
+                                    ->columns(2)
+                                    ->columnSpan(['lg' => 2]),
+
+                                Forms\Components\Section::make(__('book/fields.label.image.upload.label'))
+                                    ->schema([
+                                        Forms\Components\Tabs::make('Image Upload Options')
+                                            ->tabs([
+                                                Forms\Components\Tabs\Tab::make(__('book/fields.label.image.upload.label'))
+                                                    ->schema([
+                                                        Forms\Components\SpatieMediaLibraryFileUpload::make('uploaded_image')
+                                                            ->label(__('book/fields.label.image.upload.label'))
+                                                            ->image()
+                                                            ->collection('authors')
+                                                            ->disk('public')
+                                                            ->directory('authors')
+                                                            ->maxSize(2048)
+                                                    ]),
+                                                Forms\Components\Tabs\Tab::make(__('book/fields.label.image.insert.label'))
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('image_path')
+                                                            ->label(__('book/fields.label.image.insert.desc'))
+                                                            ->placeholder('https://example.com/image.jpg')
+                                                            ->url()
+                                                    ])
+                                            ])
+                                    ])
+                                    ->columnSpan(['lg' => 2])
+                                    ->collapsible(),
+
+                                Forms\Components\Section::make(__('book/fields.label.details.label'))
+                                    ->schema([
+                                        Forms\Components\Grid::make()
+                                            ->schema([
+                                                Forms\Components\DatePicker::make('birthdate')
+                                                    ->label(ucfirst(__('author.birth')))
+                                                    ->required()
+                                                    ->native(false)
+                                                    ->displayFormat('Y-m-d')
+                                                    ->prefixIcon('heroicon-o-calendar'),
+                                                Forms\Components\DatePicker::make('deathdate')
+                                                    ->label(ucfirst(__('author.death')))
+                                                    ->native(false)
+                                                    ->displayFormat('Y-m-d')
+                                                    ->prefixIcon('heroicon-o-calendar'),
+                                            ])
+                                            ->columns(['lg' => 2]),
+                                    ])
+                                    ->collapsible(),
+                            ])
+                            ->columnSpan(['lg' => 2]),
+
+                        Forms\Components\Grid::make()
+                            ->schema([
+                                Forms\Components\Section::make()
+                                    ->schema([
+                                        Forms\Components\Select::make('books')
+                                            ->label(__('book/fields.page.title'))
+                                            ->multiple()
+                                            ->relationship('books', 'title', fn($query) => $query->orderBy('title'))
+                                            ->preload()
+                                            ->searchable(),
+                                    ])
+                            ])
+                            ->columnSpan(['lg' => 1]),
+                    ])->columns(3)
             ]);
     }
 
@@ -39,7 +127,23 @@ class AuthorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\ImageColumn::make('image_path')
+                    ->label(__('book/fields.label.image.insert.label')),
+
+                Tables\Columns\TextColumn::make('fullname')
+                    ->label(__('profile.fullname'))
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('birthdate')
+                    ->label(ucfirst(__('author.birth')))
+                    ->date('Y-m-d')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('deathdate')
+                    ->label(ucfirst(__('author.death')))
+                    ->date('Y-m-d')
+                    ->sortable(),
             ])
             ->filters([
                 //

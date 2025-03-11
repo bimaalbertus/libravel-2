@@ -12,5 +12,12 @@ return [
     'user_reviews' => 'user reviews',
     'no_review' => 'No review yet',
     'no_rating' => 'Not rated yet',
-    'write' => 'write'
+    'write' => 'write',
+    'review_saved' => 'Review saved successfully.',
+    'delete' => [
+        'delete_review' => 'Delete Review',
+        'confirm_delete_review' => 'This will permanently delete your review. Continue?',
+        'review_deleted' => 'Review deleted successfully.',
+        'delete_failed' => 'Failed to delete review.',
+    ]
 ];

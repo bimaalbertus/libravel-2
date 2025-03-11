@@ -49,7 +49,7 @@
                     {{ $book->page_count . ' ' . __('book.pages') }}
                 </div>
                 @if (count($book->authors) > 0)
-                    <div class="mt-5">
+                    <div>
                         <h3 class="text-xl font-semibold mb-2">
                             {{ app()->getLocale() === 'en' ? (count($book->authors) > 1 ? 'Authors' : 'Author') : 'Penulis' }}
                         </h3>
@@ -67,17 +67,29 @@
                         </div>
                     </div>
                 @endif
+                <x-button class="inline-flex items-center gap-2 w-full max-w-32 px-2"
+                    href="https://www.google.com/search?q={{ $book->title }}%20-%20{{ $book->authors[0]->fullname }}"
+                    target="_blank">
+                    <span>
+                        Google!
+                    </span>
+                    <i class="ti ti-external-link"></i>
+                </x-button>
+                <livewire:download-docs :bookId="$book->id" />
+                <div
+                    class="text-light-text-secondary dark:text-dark-text-secondary text-sm capitalize max-w-96 md:max-w-full">
+                    <span class="text-light-text-primary dark:text-dark-text-primary mr-2 font-semibold">
+                        {{ __('book.synopsis') }}:</span>
+                    <x-show-more class="text-justify" :text="$book->synopsis" />
+                </div>
             </div>
         </div>
 
         <div class="w-full max-w-4xl mx-auto my-16">
             <x-tabs :tabs="$tabs" default-tab="infos" :has-icons="true" :border="false">
                 <x-slot name="tab_infos">
-                    <div
-                        class="text-light-text-secondary dark:text-dark-text-secondary text-base capitalize max-w-96 md:max-w-full">
-                        <span class="text-light-text-primary dark:text-dark-text-primary mr-2 font-semibold">
-                            {{ __('book.synopsis') }}:</span>
-                        <x-show-more class="text-justify" :text="$book->synopsis" />
+                    <div class="text-base capitalize max-w-96 md:max-w-full">
+                        <h1 class="text-2xl font-bold">{{ __('book/fields.label.genres.label') }}</h1>
                     </div>
                 </x-slot>
                 <x-slot name="tab_reviews">

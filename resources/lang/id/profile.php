@@ -59,5 +59,13 @@ return [
     'cannot_delete_last_admin' => 'Akun tidak dapat dihapus karena Anda adalah satu-satunya admin.',
     'main_admin_cannot_delete' => 'Akun admin utama tidak bisa dihapus.',
     'your_account_deleted_successfully' => 'Akun Anda telah berhasil dihapus.',
-    'joined' => 'Bergabung'
+    'joined' => 'Bergabung',
+
+    'avatar' => [
+        'avatar_title' => 'Avatar',
+        'avatar_desc' => 'Ini adalah avatar Anda. Klik pada avatar untuk memilihnya, lalu simpan pilihan Anda.',
+        'avatar_helper' => 'Avatar bersifat opsional, tetapi sangat disarankan.',
+        'avatar_header' => 'Pilih Avatar Anda',
+        'avatar_success' => 'Avatar diubah'
+    ]
 ];

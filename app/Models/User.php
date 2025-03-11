@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use Laravolt\Avatar\Facade as Avatar;
+use Laravolt\Avatar\Facade as LaravoltAvatar;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Filament\Models\Contracts\HasName;
@@ -31,7 +31,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         'gender',
         'major',
         'language',
-        'avatar',
+        'avatar_id',
         'delete_request_at',
         'is_admin'
     ];
@@ -84,9 +84,13 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function getAvatar($size = 100, $shape = 'square')
     {
+        if ($this->avatar && $this->avatar->getFirstMediaUrl('avatars')) {
+            return $this->avatar->getFirstMediaUrl('avatars');
+        }
+
         $name = !empty($this->fullname) ? $this->fullname : $this->username;
 
-        return Avatar::create(strtoupper($name))
+        return \Laravolt\Avatar\Facade::create(strtoupper($name))
             ->setDimension($size, $size)
             ->setBackground('#1f1f1f')
             ->setFontSize($size * 0.4)
@@ -118,5 +122,15 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function reviews()
     {
         return $this->hasMany(UserReview::class);
+    }
+
+    public function avatar()
+    {
+        return $this->belongsTo(Avatar::class);
+    }
+
+    public function downloads()
+    {
+        return $this->hasMany(Downloads::class);
     }
 }

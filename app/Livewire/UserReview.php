@@ -13,6 +13,7 @@ class UserReview extends Component
     public $book_id;
     public $book_slug;
     public $userReview;
+    public $deleteModal = false;
 
     protected $listeners = ['reviewAdded' => 'refreshReview'];
 
@@ -30,12 +31,17 @@ class UserReview extends Component
 
     public function deleteReview()
     {
-        $this->userReview = Review::where('book_id', $this->book_id)
+        if (Review::where('book_id', $this->book_id)
             ->where('user_id', Auth::id())
-            ->delete();
+            ->first()
+        ) {
+            $this->userReview = Review::where('book_id', $this->book_id)
+                ->where('user_id', Auth::id())
+                ->delete();
 
-        Toaster::success('Review deleted successfully!');
-        return redirect()->route('book.detail', ['id' => $this->book_id, 'slug' => $this->book_slug]);
+            $this->deleteModal = false;
+            Toaster::success(__('review_deleted'));
+        }
     }
 
     public function refreshReview()

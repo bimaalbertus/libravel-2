@@ -18,7 +18,7 @@
                         :dots="true" :customPaging="true" :useThumbDots="true" :thumbnailSize="60">
                         @foreach ($validCovers as $path)
                             <x-image-skeleton :src="$path" alt="{{ $author->slug }}"
-                                class="aspect-[323/500] w-full h-auto rounded-xl px-4" />
+                                class="aspect-[323/500] w-full h-auto rounded-xl px-4 object-cover object-center" />
                         @endforeach
                     </x-slider>
                 @else
@@ -51,7 +51,7 @@
                 <x-button class="inline-flex items-center gap-2 w-full max-w-32 px-2"
                     href="https://www.google.com/search?q={{ $author->fullname }}" target="_blank">
                     <span>
-                        Google It!
+                        Google!
                     </span>
                     <i class="ti ti-external-link"></i>
                 </x-button>

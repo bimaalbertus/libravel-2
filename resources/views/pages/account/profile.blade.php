@@ -5,7 +5,7 @@
     $tabs = [
         'infos' => [
             'label' => $user->username,
-            'icon' => $user->getAvatar(20, 'circle'),
+            'icon' => '<x-avatar-display type="circle" :size="20" />',
         ],
         'account' => [
             'label' => __('profile.page.account_settings'),
@@ -29,7 +29,7 @@
                 </x-slot>
                 <x-slot name="tab_account">
                     <div class="text-light-text-secondary dark:text-dark-text-secondary text-base capitalize">
-                        <x-account::settings />
+                        <x-account::account />
                     </div>
                 </x-slot>
                 <x-slot name="tab_security">

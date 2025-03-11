@@ -59,5 +59,13 @@ return [
     'cannot_delete_last_admin' => 'The account cannot be deleted because you are the only admin.',
     'main_admin_cannot_delete' => 'The main admin account cannot be deleted.',
     'your_account_deleted_successfully' => 'Your account has been deleted successfully.',
-    'joined' => 'Joined'
+    'joined' => 'Joined',
+
+    'avatar' => [
+        'avatar_title' => 'Avatar',
+        'avatar_desc' => 'This is your avatar. Click on an avatar to select it, then save your choice.',
+        'avatar_helper' => 'An avatar is optional but strongly recommended.',
+        'avatar_header' => 'Select Your Avatar',
+        'avatar_success' => 'Avatar changed.'
+    ]
 ];

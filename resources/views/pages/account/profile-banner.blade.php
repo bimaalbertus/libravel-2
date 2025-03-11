@@ -12,7 +12,7 @@
 
         <!-- Joined and Edit buttons (top right) -->
         <div class="absolute top-4 right-4 flex items-center space-x-2">
-            <div class="text-sm px-3 py-1 rounded-full bg-neutral-700 bg-opacity-80">
+            <div class="text-sm px-3 py-1 rounded-full bg-neutral-500 dark:bg-neutral-700 bg-opacity-80">
                 {{ __('profile.joined') . ' ' . $joined }}
             </div>
             <x-button bgColor="bg-yellow-500" x-on:click="selectedTab = 'account'">
@@ -28,8 +28,9 @@
             <!-- Profile and Details in Row Layout -->
             <div class="flex items-center space-x-4">
                 <!-- Profile Picture -->
-                <div class="h-36 w-36 rounded-md overflow-hidden border-4 border-neutral-900">
-                    {!! $user->getAvatar(144) !!}
+                <div
+                    class="h-36 w-36 rounded-md overflow-hidden border-4 border-light-bg-primary dark:border-dark-bg-primary">
+                    <x-avatar-display size="144" />
                 </div>
 
                 <!-- User Info -->
@@ -40,7 +41,9 @@
                     <h1 class="text-2xl font-semibold">{{ $user->fullname ?? $user->username }}</h1>
 
                     <div class="flex space-x-2 mt-2">
-                        <span class="font-medium">{{ __("members/fields.fields.status.$user->status") }}</span>
+                        @if ($user->status)
+                            <span class="font-medium">{{ __("members/fields.fields.status.$user->status") }}</span>
+                        @endif
                         @if ($user->gender)
                             <span class="font-bold mx-2">•</span>
                             <span class="font-medium">{{ __("members/fields.fields.gender.$user->gender") }}</span>
@@ -50,8 +53,8 @@
                             <span class="font-medium capitalize">
                                 {{ $userMajor }}
                             </span>
-                        @elseif ($user->isAdmin())
                             <span class="font-bold mx-2">•</span>
+                        @elseif ($user->isAdmin())
                             <span class="font-medium">{{ $user->isAdmin() ? 'Admin' : '' }}</span>
                         @endif
                     </div>

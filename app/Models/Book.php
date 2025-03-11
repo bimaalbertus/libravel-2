@@ -8,6 +8,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Book extends Model implements HasMedia
 {
@@ -85,11 +86,25 @@ class Book extends Model implements HasMedia
         return $this->hasMany(UserReview::class);
     }
 
+    public function downloads()
+    {
+        return $this->hasMany(Downloads::class);
+    }
+
+    public function getMediaBasePath(Media $media): string
+    {
+        return 'books';
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('books')
             ->singleFile()
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif']);
+
+        $this->addMediaCollection('book.documents')
+            ->singleFile()
+            ->acceptsMimeTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
     }
 
     public function getCoverPath($type = 'single')
@@ -113,6 +128,20 @@ class Book extends Model implements HasMedia
         $this->addMediaConversion('webp')
             ->width(100)
             ->height(100);
+    }
+
+    public function scopeHasDocument($query)
+    {
+        return $query->whereHas('media', function ($mediaQuery) {
+            $mediaQuery->where('collection_name', 'documents');
+        });
+    }
+
+    public function scopeDoesntHaveDocument($query)
+    {
+        return $query->whereDoesntHave('media', function ($mediaQuery) {
+            $mediaQuery->where('collection_name', 'documents');
+        });
     }
 
     public function toSearchableArray()

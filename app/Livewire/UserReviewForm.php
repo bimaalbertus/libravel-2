@@ -61,7 +61,7 @@ class UserReviewForm extends Component
             $this->savedReview = $this->reviewText;
             $this->hasReviewed = true;
 
-            Toaster::success('Review saved successfully!');
+            Toaster::success(__('review.review_saved'));
             return redirect()->route('book.detail', ['id' => $this->bookId, 'slug' => $this->bookSlug]);
         }
     }

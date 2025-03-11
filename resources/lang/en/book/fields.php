@@ -2,7 +2,7 @@
 
 return [
     'page' => [
-        'title' => 'Book'
+        'title' => 'Books'
     ],
     'label' => [
         'title' => 'Title',

@@ -7,7 +7,7 @@
 
             <div class="flex items-center gap-2 md:hidden">
                 <livewire:live-search isIconOnly />
-                {!! $user->getAvatar(40, 'circle') !!}
+                <x-avatar-display type="circle" />
             </div>
             <div class="hidden md:flex items-center gap-4">
                 <livewire:live-search />
@@ -16,7 +16,7 @@
                     <a href="{{ route('profile.index', $user->username) }}"
                         class="inline-flex items-center hover:ring-2 ring-black dark:ring-white rounded-full"
                         bgColor="bg-none">
-                        {!! $user->getAvatar(40, 'circle') !!}
+                        <x-avatar-display type="circle" />
                     </a>
                     <div x-show="isOpen" @click.away="isOpen = false" x-cloak
                         x-transition:enter="transition ease-out duration-200"
@@ -83,7 +83,7 @@
                                     class="font-md text-sm uppercase">{{ $user->status ? __('members/fields.fields.status.' . $user->status) : '' . ($user->major ? '/' . $user->major : '') }}
                                 </span>
                             </div>
-                            {!! $user->getAvatar(24, 'circle') !!}
+                            <x-avatar-display type="circle" :size="24" />
                         </div>
                         <ul class="y-2 text-gray-700 dark:text-gray-200">
                             @if ($user->isAdmin())

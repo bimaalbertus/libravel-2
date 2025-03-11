@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('fullname')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('avatar')->nullable();
+            $table->foreignId('avatar_id')->nullable()->constrained();
             $table->enum('status', ['teacher', 'student', 'employee'])->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('major', 255)->nullable();

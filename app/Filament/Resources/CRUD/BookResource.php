@@ -89,9 +89,8 @@ class BookResource extends Resource
                                                             ->label(__('book/fields.label.image.upload.label'))
                                                             ->image()
                                                             ->collection('books')
-                                                            ->directory('assets/books')
-                                                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif'])
-                                                            ->maxSize(2048)
+                                                            ->disk('public')
+                                                            ->directory('books/cover')
                                                     ]),
                                                 Tab::make(__('book/fields.label.image.insert.label'))
                                                     ->schema([
@@ -104,6 +103,16 @@ class BookResource extends Resource
                                     ])
                                     ->columnSpan(['lg' => 2])
                                     ->collapsible(),
+
+                                Section::make('file')
+                                    ->schema([
+                                        SpatieMediaLibraryFileUpload::make('uploaded_file')
+                                            ->label(__('book/fields.label.image.upload.label'))
+                                            ->collection('book.documents')
+                                            ->disk('public')
+                                            ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                                            ->directory('books/documents')
+                                    ]),
 
                                 Section::make(__('book/fields.label.details.label'))
                                     ->schema([

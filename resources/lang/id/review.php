@@ -12,5 +12,12 @@ return [
     'user_reviews' => 'ulasan pengguna',
     'no_review' => 'Belum ada ulasan',
     'no_rating' => 'Belum diberi peringkat',
-    'write' => 'tulis'
+    'write' => 'tulis',
+    'review_saved' => 'Ulasan berhasil disimpan.',
+    'delete' => [
+        'delete_review' => 'Hapus Ulasan',
+        'confirm_delete_review' => 'Ulasan Anda akan dihapus permanen. Lanjutkan?',
+        'review_deleted' => 'Ulasan berhasil dihapus.',
+        'delete_failed' => 'Gagal menghapus ulasan.',
+    ]
 ];
