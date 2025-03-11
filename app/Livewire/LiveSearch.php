@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Author;
 use Livewire\Component;
 use App\Models\Book;
+use App\Models\Collection;
 use App\Models\Publisher;
 use Livewire\WithPagination;
 
@@ -25,6 +26,7 @@ class LiveSearch extends Component
             'books' => [],
             'authors' => [],
             'publishers' => [],
+            'collections' => []
         ];
     }
 
@@ -35,6 +37,7 @@ class LiveSearch extends Component
                 'books' => Book::search($this->query)->get(),
                 'authors' => Author::search($this->query)->get(),
                 'publishers' => Publisher::search($this->query)->get(),
+                'collections' => Collection::search($this->query)->get(),
             ];
         } else {
             $this->results = [];

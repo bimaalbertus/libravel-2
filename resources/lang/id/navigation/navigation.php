@@ -27,6 +27,8 @@ return [
     'menus' => [
         'dashboard' => 'Dashboard Admin',
         'profile' => 'Profil',
+        'account_settings' => 'Pengaturan Akun',
+        'read_later' => 'Baca Nanti',
         'theme' => 'Tema',
         'language' => 'Bahasa',
         'signout' => 'Keluar'
@@ -56,6 +58,7 @@ return [
             'book' => 'Buku',
             'author' => 'Penulis',
             'publisher' => 'Penerbit',
+            'collection' => 'Koleksi'
         ]
     ],
     'loading' => 'Memuat',

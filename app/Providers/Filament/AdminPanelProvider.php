@@ -83,7 +83,6 @@ class AdminPanelProvider extends PanelProvider
                 LightSwitchPlugin::make(),
                 FilaSortablePlugin::make(),
                 ThemesPlugin::make(),
-                FilamentScaffoldPlugin::make(),
                 GlobalSearchModalPlugin::make()
             ])
             ->middleware([

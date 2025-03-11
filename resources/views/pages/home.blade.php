@@ -25,7 +25,9 @@
                     </div>
                 @endforeach
             </x-slider>
-            <x-slider title="Adventure Books" :datas="$adventures" />
+            @foreach ($collections as $index => $collection)
+                <x-slider title="{{ $collection->title }}" :datas="$collection->books" />
+            @endforeach
         </div>
     </div>
 @endsection

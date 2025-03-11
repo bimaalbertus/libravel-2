@@ -20,7 +20,7 @@ class MemberResource extends Resource
     protected static ?string $slug = 'management/users';
     protected static ?string $navigationGroup = 'User';
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'username';
     protected static ?int $navigationSort = 2;
 
     public $userClass;
@@ -48,6 +48,7 @@ class MemberResource extends Resource
                 Forms\Components\TextInput::make('fullname')
                     ->label(__('members/fields.fields.fullname'))
                     ->rules(['max:128'])
+                    ->regex('/^[\p{L}\s\'-]{3,50}$/u')
                     ->live()
                     ->afterStateUpdated(function (Forms\Contracts\HasForms $livewire, Forms\Components\TextInput $component) {
                         /** @var \Livewire\Component $livewire */
@@ -58,6 +59,7 @@ class MemberResource extends Resource
                     ->unique('users', 'username', ignoreRecord: true)
                     ->required()
                     ->rules(['alpha_dash', 'min:3', 'max:32'])
+                    ->regex('/^[a-zA-Z0-9_-]{3,16}$/')
                     ->live()
                     ->afterStateUpdated(function (Forms\Contracts\HasForms $livewire, Forms\Components\TextInput $component) {
                         /** @var \Livewire\Component $livewire */
@@ -66,6 +68,14 @@ class MemberResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->label(__('members/fields.fields.password'))
                     ->password()
+                    ->same('password_confirm')
+                    ->dehydrateStateUsing(fn($state) => !empty($state) ? bcrypt($state) : null)
+                    ->dehydrated(fn($state) => filled($state))
+                    ->required(fn($livewire) => $livewire instanceof Pages\CreateMember),
+                Forms\Components\TextInput::make('password_confirm')
+                    ->label(__('members/fields.fields.password_confirm'))
+                    ->password()
+                    ->same('password')
                     ->dehydrateStateUsing(fn($state) => !empty($state) ? bcrypt($state) : null)
                     ->dehydrated(fn($state) => filled($state))
                     ->required(fn($livewire) => $livewire instanceof Pages\CreateMember),
@@ -78,6 +88,7 @@ class MemberResource extends Resource
                     ->required(),
                 Forms\Components\Radio::make('gender')
                     ->label(__('members/fields.fields.gender.label'))
+                    ->default(fn($record) => $record->gender)
                     ->options(['male' => __('members/fields.fields.gender.male'), 'female' => __('members/fields.fields.gender.female')]),
                 Forms\Components\Select::make('major')
                     ->label(__('members/fields.fields.major'))
@@ -110,7 +121,7 @@ class MemberResource extends Resource
                     ->label(__('members/fields.fields.major'))
                     ->formatStateUsing(fn($state) => strtoupper($state)),
                 Tables\Columns\ToggleColumn::make('is_admin')
-                    ->label('admin')
+                    ->label('Admin')
                     ->disabled(fn($record) => $record->id === 1),
             ])
             ->filters([

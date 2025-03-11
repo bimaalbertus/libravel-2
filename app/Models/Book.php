@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 
 class Book extends Model implements HasMedia
@@ -26,16 +25,18 @@ class Book extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($model) {
-            $lastBook = Book::latest('id')->first();
+            DB::transaction(function () use ($model) {
+                $lastBook = Book::lockForUpdate()->latest('id')->first();
 
-            if (!$lastBook) {
-                $nextId = 1;
-            } else {
-                $lastNumber = (int) substr($lastBook->id, 2);
-                $nextId = $lastNumber + 1;
-            }
+                if (!$lastBook) {
+                    $nextId = 1;
+                } else {
+                    $lastNumber = (int) substr($lastBook->id, 2);
+                    $nextId = $lastNumber + 1;
+                }
 
-            $model->id = 'lb' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+                $model->id = 'lb' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+            });
         });
 
         static::saving(function ($book) {
@@ -67,6 +68,21 @@ class Book extends Model implements HasMedia
     public function authors()
     {
         return $this->belongsToMany(Author::class, 'book_author');
+    }
+
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class, 'book_collections');
+    }
+
+    public function whoSaved()
+    {
+        return $this->belongsToMany(User::class, 'read_laters', 'book_id', 'user_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(UserReview::class);
     }
 
     public function registerMediaCollections(): void

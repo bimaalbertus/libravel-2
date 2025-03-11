@@ -18,7 +18,7 @@
             </p>
 
             <div class="mt-4">
-                <x-textarea wire:model.defer="reason" name="reason" :error="$errors->first('reason')" width="full" label="Reason"
+                <x-textarea wire:model.defer="reason" name="reason" :error="$errors->first('reason')" width="w-full" label="Reason"
                     required />
             </div>
         </x-slot>

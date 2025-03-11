@@ -31,6 +31,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         'gender',
         'major',
         'language',
+        'avatar',
         'delete_request_at',
         'is_admin'
     ];
@@ -58,6 +59,11 @@ class User extends Authenticatable implements FilamentUser, HasName
             'password' => 'hashed',
             'is_admin' => 'boolean',
         ];
+    }
+
+    public function getUsernameAttribute($value)
+    {
+        return '@' . $value;
     }
 
     public function isAdmin(): bool
@@ -89,7 +95,7 @@ class User extends Authenticatable implements FilamentUser, HasName
             ->toSvg();
     }
 
-    public function majors()
+    public function major()
     {
         return $this->belongsTo(Major::class, 'major', 'abbreviation');
     }
@@ -102,5 +108,15 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function latestMessage()
     {
         return $this->hasOne(UserMessage::class)->latestOfMany();
+    }
+
+    public function readLaters()
+    {
+        return $this->belongsToMany(Book::class, 'read_laters', 'user_id', 'book_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(UserReview::class);
     }
 }

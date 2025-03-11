@@ -8,6 +8,7 @@ return [
         'fullname' => 'Nama Asli',
         'username' => 'Username',
         'password' => 'Kata Sandi',
+        'password_confirm' => 'Konfirmasi Kata Sandi',
         'status' => [
             'student' => 'Murid',
             'teacher' => 'Guru',

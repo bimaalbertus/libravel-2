@@ -27,6 +27,8 @@ return [
     'menus' => [
         'dashboard' => 'Admin Dashboard',
         'profile' => 'Profile',
+        'account_settings' => 'Account Settings',
+        'read_later' => 'Read Later',
         'theme' => 'Theme',
         'language' => 'Language',
         'signout' => 'Sign out'
@@ -56,6 +58,7 @@ return [
             'book' => 'Books',
             'author' => 'Authors',
             'publisher' => 'Publishers',
+            'collection' => 'Collections'
         ]
     ],
     'loading' => 'Loading',

@@ -5,13 +5,14 @@
     'hasIcons' => false,
     'wireModelName' => null,
     'isLivewire' => false,
+    'border' => true,
 ])
 
 @if ($isLivewire)
     <div x-data="{ selectedTab: '{{ $defaultTab ?? array_key_first($tabs) }}' }" class="w-full">
         <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()"
-            class="flex gap-2 overflow-x-auto border-b border-outline dark:border-outline-dark" role="tablist"
-            aria-label="tab options">
+            class="flex gap-2 overflow-x-auto border-b border-outline dark:border-outline-dark sticky top-16 z-20 bg-light-bg-primary dark:bg-dark-bg-primary {{ $border ? 'px-4' : '' }}"
+            role="tablist" aria-label="tab options">
             @foreach ($tabs as $name => $tab)
                 <button
                     @if ($wireModelName) wire:click="{{ $wireModelName }}('{{ $name }}')" @endif
@@ -30,6 +31,9 @@
                 </button>
             @endforeach
         </div>
+        @if ($border)
+            <div class="mt-2 w-full h-1 border-b border-b-neutral-800 dark:border-b-neutral-400"></div>
+        @endif
         <div class="px-2 py-4 text-on-surface dark:text-on-surface-dark">
             @foreach ($tabs as $name => $tab)
                 <div x-cloak x-show="selectedTab === '{{ $name }}'"
@@ -49,7 +53,8 @@
 @else
     <div x-data="{ selectedTab: '{{ $defaultTab ?? array_key_first($tabs) }}' }" class="w-full">
         <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()"
-            class="flex gap-2 overflow-x-auto" role="tablist" aria-label="tab options">
+            class="flex gap-2 overflow-x-auto sticky top-16 z-20 bg-light-bg-primary dark:bg-dark-bg-primary {{ $border ? 'px-4' : '' }}"
+            role="tablist" aria-label="tab options">
             @foreach ($tabs as $name => $tab)
                 <button x-on:click="selectedTab = '{{ $name }}'"
                     x-bind:aria-selected="selectedTab === '{{ $name }}'"
@@ -66,6 +71,9 @@
                 </button>
             @endforeach
         </div>
+        @if ($border)
+            <div class="mt-2 w-full h-1 border-b border-b-neutral-800 dark:border-b-neutral-400"></div>
+        @endif
         <div class="px-2 py-4 text-on-surface dark:text-on-surface-dark">
             @foreach ($tabs as $name => $tab)
                 <div x-cloak x-show="selectedTab === '{{ $name }}'"

@@ -59,4 +59,5 @@ return [
     'cannot_delete_last_admin' => 'Akun tidak dapat dihapus karena Anda adalah satu-satunya admin.',
     'main_admin_cannot_delete' => 'Akun admin utama tidak bisa dihapus.',
     'your_account_deleted_successfully' => 'Akun Anda telah berhasil dihapus.',
+    'joined' => 'Bergabung'
 ];

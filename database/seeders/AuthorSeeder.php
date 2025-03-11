@@ -421,13 +421,6 @@ class AuthorSeeder extends Seeder
                 'bio' => 'British Indian novelist and essayist. His second novel, Midnight\'s Children, won the Booker Prize in 1981 and was deemed to be "the best novel of all winners" on two separate occasions.'
             ],
             [
-                'fullname' => 'Homer',
-                'image_path' => 'https://cdn.britannica.com/56/188756-050-4DB4A2B8/Salman-Rushdie-2008.jpg',
-                'birthdate' => '800 BCE',
-                'deathdate' => '750 BCE',
-                'bio' => 'Author of the Iliad and the Odyssey. He is an ancient Greek semi-legendary author of the 8th or 7th century BCE to whom the authorship of the Iliad and the Odyssey is attributed.'
-            ],
-            [
                 'fullname' => 'Jonathan Swift',
                 'image_path' => 'https://cdn.britannica.com/58/9158-050-37846E0B/Jonathan-Swift-detail-oil-painting-Charles-Jervas.jpg',
                 'birthdate' => '1667-11-30',

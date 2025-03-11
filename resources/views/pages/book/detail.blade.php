@@ -4,6 +4,9 @@
 @php
     $covers = $book->getCoverPath('all');
     $validCovers = array_filter($covers);
+    $userReview = \App\Models\UserReview::where('book_id', $book->id)
+        ->where('user_id', auth()->id())
+        ->first();
 
     $tabs = [
         'infos' => [
@@ -22,8 +25,8 @@
 @endphp
 
 @section('content')
-    <div class="flex flex-col items-center py-12">
-        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+    <div class="flex flex-col py-12">
+        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start w-full max-w-4xl mx-auto">
             <div class="max-w-64">
                 @if (count($validCovers) > 1)
                     <x-slider :slidesToShow="1" :responsive="false" :slidesToScroll="1" :autoplay="false" :arrows="false"
@@ -45,28 +48,30 @@
                     <span class="font-bold mx-2">•</span>
                     {{ $book->page_count . ' ' . __('book.pages') }}
                 </div>
-                <div class="mt-5">
-                    <h3 class="text-xl font-semibold mb-2">
-                        {{ app()->getLocale() === 'en' ? (count($book->authors) > 1 ? 'Authors' : 'Author') : 'Penulis' }}
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 items-center gap-4">
-                        @foreach ($book->authors as $author)
-                            <a href="/author/{{ $author->id }}-{{ $author->slug }}">
-                                <div
-                                    class="flex items-center gap-2 py-2 px-4 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition ease-in-out">
-                                    <x-image-skeleton :src="$author->image_path" :alt="$author->slug"
-                                        class="size-12 object-cover rounded-full" />
-                                    <span>{{ $author->fullname }}</span>
-                                </div>
-                            </a>
-                        @endforeach
+                @if (count($book->authors) > 0)
+                    <div class="mt-5">
+                        <h3 class="text-xl font-semibold mb-2">
+                            {{ app()->getLocale() === 'en' ? (count($book->authors) > 1 ? 'Authors' : 'Author') : 'Penulis' }}
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
+                            @foreach ($book->authors as $author)
+                                <a href="/author/{{ $author->id }}-{{ $author->slug }}">
+                                    <div
+                                        class="flex items-center gap-2 py-2 px-4 hover:bg-black/10 dark:hover:bg-white/10 rounded-lg transition ease-in-out">
+                                        <x-image-skeleton :src="$author->image_path" :alt="$author->slug"
+                                            class="size-12 object-cover rounded-full" />
+                                        <span>{{ \Illuminate\Support\Str::limit($author->fullname, 20) }}</span>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
 
         <div class="w-full max-w-4xl mx-auto my-16">
-            <x-tabs :tabs="$tabs" default-tab="infos" :has-icons="true">
+            <x-tabs :tabs="$tabs" default-tab="infos" :has-icons="true" :border="false">
                 <x-slot name="tab_infos">
                     <div
                         class="text-light-text-secondary dark:text-dark-text-secondary text-base capitalize max-w-96 md:max-w-full">
@@ -76,7 +81,7 @@
                     </div>
                 </x-slot>
                 <x-slot name="tab_reviews">
-                    reviews soon
+                    <livewire:user-review :book_id="$book->id" :book_slug="$book->slug" />
                 </x-slot>
                 <x-slot name="tab_media">
                     media soon

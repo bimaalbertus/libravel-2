@@ -1,6 +1,6 @@
 <div x-data="{ isLoading: @entangle('isLoading') }">
     <button type="submit" wire:click="logout"
-        class="inline-flex items-center justify-between w-full gap-2 cursor-pointer py-2 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">
+        class="inline-flex items-center justify-between w-full gap-2 cursor-pointer py-1 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">
         <span>{{ __('navigation/navigation.menus.signout') }}</span>
         <i class="ti ti-logout mt-1 text-lg"></i>
     </button>

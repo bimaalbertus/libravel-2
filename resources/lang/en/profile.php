@@ -59,4 +59,5 @@ return [
     'cannot_delete_last_admin' => 'The account cannot be deleted because you are the only admin.',
     'main_admin_cannot_delete' => 'The main admin account cannot be deleted.',
     'your_account_deleted_successfully' => 'Your account has been deleted successfully.',
+    'joined' => 'Joined'
 ];

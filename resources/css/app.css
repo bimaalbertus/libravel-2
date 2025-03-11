@@ -40,6 +40,16 @@
     letter-spacing: -0.025em;
 }
 
+.dark .grid-bg {
+    background-size: 9rem 9rem;
+    background-image: linear-gradient(to right, #2c2c2e 1px, transparent 1px),
+        linear-gradient(to bottom, #2c2c2e 1px, #1a1814 1px);
+}
+
+.box-shadow-purple {
+    box-shadow: 0 4px 20px rgba(210, 168, 255, 0.5);
+}
+
 [x-cloak] {
     display: none !important;
 }

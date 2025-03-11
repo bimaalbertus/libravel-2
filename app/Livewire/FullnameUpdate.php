@@ -10,7 +10,7 @@ class FullnameUpdate extends Component
     public $fullname;
 
     protected $rules = [
-        'fullname' => 'required|string|max:48'
+        'fullname' => 'string|max:48'
     ];
 
     public function mount()
@@ -32,6 +32,7 @@ class FullnameUpdate extends Component
         ]);
 
         Toaster::success(__('profile.saved_successfully'));
+        return redirect()->route('profile.index', auth()->user()->username);
     }
 
     public function render()

@@ -22,7 +22,7 @@
 
 <button @if (strlen($href) > 0) data-href="{{ $href }}" data-target="{{ $target }}" @endif
     {{ $attributes->merge([
-        'class' => "hidden md:flex items-center overflow-hidden capitalize {$fontSize} font-{$fontWeight} {$bgColor} {$textColor} {$padding} {$hoverPadding} {$rounded} hover:shadow-xl group {$buttonWidth}",
+        'class' => "flex items-center overflow-hidden capitalize {$fontSize} font-{$fontWeight} {$bgColor} {$textColor} {$padding} {$hoverPadding} {$rounded} hover:shadow-xl group {$buttonWidth}",
     ]) }}>
     <!-- Container with fixed width to maintain button size -->
     <div class="relative {{ $containerWidth }} {{ $containerHeight }} overflow-hidden {{ $containerRounded }}">

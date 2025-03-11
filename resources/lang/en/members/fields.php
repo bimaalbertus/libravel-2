@@ -8,6 +8,7 @@ return [
         'fullname' => 'Full Name',
         'username' => 'Username',
         'password' => 'Password',
+        'password_confirm' => 'Confirm Password',
         'status' => [
             'student' => 'Student',
             'teacher' => 'Teacher',

@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             AuthorSeeder::class,
             BookRelationSeeder::class,
+            CollectionSeeder::class
         ]);
     }
 }

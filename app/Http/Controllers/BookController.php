@@ -10,7 +10,7 @@ class BookController extends Controller
 {
     public function index($id, $slug = null)
     {
-        $book = Book::findOrFail($id);
+        $book = Book::with('reviews.user')->findOrFail($id);
 
         if (is_null($slug)) {
             return redirect()->route('book.detail', ['id' => $id, 'slug' => $book->slug]);

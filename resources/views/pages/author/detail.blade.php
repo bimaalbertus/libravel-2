@@ -10,7 +10,7 @@
 @endphp
 
 @section('content')
-    <div class="flex flex-col py-2 md:mx-32">
+    <div class="flex flex-col py-2 md:px-32">
         <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
             <div class="max-w-64">
                 @if (count($validCovers) > 1)

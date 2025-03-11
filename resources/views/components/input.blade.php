@@ -6,7 +6,6 @@
     'width' => 'w-96',
     'height' => 'h-10',
     'error' => false,
-    'required' => true,
 ])
 
 <div>
@@ -25,7 +24,7 @@
             @error($name) 
                 border-red-500 ring-2 ring-red-500 ring-opacity-50 outline-none 
             @enderror"
-                {!! $attributes->merge(['class' => '']) !!} {{ $attributes }} @if ($required) required @endif />
+                {!! $attributes->merge(['class' => '']) !!} {{ $attributes }} />
             <button type="button" @click="showPassword = !showPassword"
                 class="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-600 dark:text-neutral-300"
                 aria-label="Show password">
@@ -53,7 +52,7 @@
             @error($name) 
                 border-red-500 ring-2 ring-red-500 ring-opacity-50 outline-none 
             @enderror"
-            {!! $attributes->merge(['class' => '']) !!} {{ $attributes }} @if ($required) required @endif>
+            {!! $attributes->merge(['class' => '']) !!} {{ $attributes }}>
     @endif
     @if ($error)
         <small class="pl-0.5 text-red-500">{{ $error }}</small>

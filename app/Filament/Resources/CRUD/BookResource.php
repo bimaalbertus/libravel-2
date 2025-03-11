@@ -161,7 +161,7 @@ class BookResource extends Resource
                                         Select::make('authors')
                                             ->label(__('book/fields.label.author'))
                                             ->multiple()
-                                            ->relationship('authors', 'fullname', fn($query) => $query->orderBy('key'))
+                                            ->relationship('authors', 'fullname', fn($query) => $query->orderBy('fullname'))
                                             ->preload()
                                             ->searchable(),
                                     ])

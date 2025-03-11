@@ -8,4 +8,14 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: "libravel-2.test",
+        hmr: {
+            protocol: "wss",
+            host: "libravel-2.test",
+            watch: {
+                usePolling: true,
+            },
+        },
+    },
 });

@@ -18,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
             // 'member' => \App\Http\Middleware\AuthenticateMember::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'member' => \App\Http\Middleware\MemberMiddleware::class,
-            'authenticate' => \App\Http\Middleware\Authenticate::class
+            'authenticate' => \App\Http\Middleware\Authenticate::class,
+            'username' => \App\Http\Middleware\UsernameMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

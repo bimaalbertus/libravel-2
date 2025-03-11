@@ -10,36 +10,20 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class AuthController extends Controller
 {
-    public function view()
+    public function login()
     {
         return view('pages.login');
     }
 
-    public function settings()
+    public function profile()
     {
-        return view('pages.account.settings');
+        return view('pages.account.profile');
     }
 
-    public function security()
+    public function readlater($username)
     {
-        return view('pages.account.security');
-    }
+        $books = Auth::user()->readLaters()->paginate(10);
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'username' => 'required|string|min:3|max:32',
-            'password' => 'required|string|min:8',
-        ]);
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            return redirect('/');
-        }
-
-        throw ValidationException::withMessages([
-            'username' => __('auth.failed'),
-        ]);
+        return view('pages.account.read-later', compact('books'));
     }
 }

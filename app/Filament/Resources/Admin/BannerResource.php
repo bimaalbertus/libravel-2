@@ -25,6 +25,7 @@ class BannerResource extends Resource
 
     protected static ?string $slug = '/banners';
     protected static ?string $navigationIcon = 'heroicon-o-view-columns';
+    protected static ?string $navigationGroup = 'Menu';
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
 

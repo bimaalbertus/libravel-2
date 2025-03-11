@@ -18,7 +18,7 @@ class AuthorResource extends Resource
     protected static ?string $slug = 'crud/author';
     protected static ?string $navigationGroup = 'CRUD';
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $recordTitleAttribute = 'number';
+    protected static ?string $recordTitleAttribute = 'fullname';
     protected static ?int $navigationSort = 1;
 
     public static function getGlobalSearchResultUrl(Model $record): string
@@ -67,6 +67,7 @@ class AuthorResource extends Resource
             'index' => Pages\ListAuthors::route('/'),
             'create' => Pages\CreateAuthor::route('/create'),
             'edit' => Pages\EditAuthor::route('/{record}/edit'),
+            'view' => Pages\ViewAuthor::route('/{record}'),
         ];
     }
 }

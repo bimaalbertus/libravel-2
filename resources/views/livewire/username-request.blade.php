@@ -28,7 +28,7 @@
                 </p>
 
                 <div class="flex flex-col gap-4 mt-4">
-                    <x-input wire:model.defer="new_username" name="new_username" :error="$errors->first('new_username')" width="full"
+                    <x-input wire:model.defer="new_username" name="new_username" :error="$errors->first('new_username')" width="w-full"
                         label="{{ __('profile.new_username') }}" required />
                     <x-textarea wire:model.defer="reason" name="reason" :error="$errors->first('reason')" width="w-full"
                         label="{{ __('members/members-messages.fields.reason') }}" required />
@@ -39,9 +39,7 @@
                     textColor="text-black dark:text-white" type="button" @click="open = false" :loading="false">
                     {{ __('profile.cancel') }}
                 </x-button>
-                <x-button bgColor="bg-dark-bg dark:bg-light-bg hover:opacity-80 transition ease-in-out"
-                    textColor="text-white dark:text-black" width="w-32" :loading="true" wire:target="send"
-                    wire:click="send">
+                <x-button width="w-32" :loading="true" wire:target="send" wire:click="send">
                     {{ __('profile.submit') }}
                 </x-button>
             </x-slot>

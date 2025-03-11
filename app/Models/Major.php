@@ -15,8 +15,8 @@ class Major extends Model
 
     protected $fillable = ['name', 'abbreviation'];
 
-    public function members()
+    public function users()
     {
-        return $this->hasMany(Member::class, 'major', 'abbreviation');
+        return $this->hasMany(User::class, 'major', 'abbreviation');
     }
 }

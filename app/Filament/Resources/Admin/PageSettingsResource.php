@@ -21,18 +21,24 @@ class PageSettingsResource extends Resource
     protected static ?string $navigationGroup = 'Menu';
     protected static ?string $navigationIcon = 'heroicon-o-adjustments-horizontal';
 
+    public static function getLabel(): string
+    {
+        return __('page-settings/fields.page.title');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('key')
-                    ->label('Key')
+                    ->unique('page_settings', 'key', ignoreRecord: true)
+                    ->label(__('page-settings/fields.key'))
                     ->required()
                     ->disabled()
                     ->maxLength(255),
 
                 Forms\Components\Toggle::make('value')
-                    ->label('Value')
+                    ->label(__('page-settings/fields.value'))
                     ->default(true)
                     ->required(),
             ]);
@@ -43,11 +49,11 @@ class PageSettingsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('key')
-                    ->label('Pengaturan')
+                    ->label(__('page-settings/fields.key'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('value')
-                    ->label('Status'),
+                    ->label(__('page-settings/fields.value')),
             ])
             ->filters([
                 //
