@@ -14,21 +14,33 @@ class Login extends Component
 
     public function submit()
     {
-        $credentials = $this->validate([
-            'username' => 'required|string|min:3|max:32',
-            'password' => 'required|string|min:8',
-        ]);
+        try {
+            $credentials = $this->validate([
+                'username' => 'required|string|min:3|max:32',
+                'password' => 'required|string|min:8',
+            ]);
 
-        if (Auth::attempt($credentials)) {
-            session()->regenerate();
+            if (Auth::attempt($credentials)) {
+                session()->regenerate();
+                $locale = app()->getLocale();
 
-            Toaster::success(__('profile.login_success'));
-            return redirect('/');
+                /** @var User $user */
+                $user = Auth::user();
+                $user->update(['language' => $locale]);
+
+                Toaster::success(__('profile.login_success'));
+                return redirect('/');
+            } else {
+                Toaster::error(__('auth.failed'));
+                return;
+            }
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $fieldErrors) {
+                foreach ($fieldErrors as $error) {
+                    Toaster::error($error);
+                }
+            }
         }
-
-        throw ValidationException::withMessages([
-            'username' => __('auth.failed'),
-        ]);
     }
 
     public function render()

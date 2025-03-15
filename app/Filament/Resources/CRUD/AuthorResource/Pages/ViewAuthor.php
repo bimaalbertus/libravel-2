@@ -16,7 +16,7 @@ class ViewAuthor extends ViewRecord
         /** @var Author */
         $record = $this->getRecord();
 
-        return $record->title;
+        return $record->fullname;
     }
 
     protected function getActions(): array

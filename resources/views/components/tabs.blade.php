@@ -11,7 +11,7 @@
 @if ($isLivewire)
     <div x-data="{ selectedTab: '{{ $defaultTab ?? array_key_first($tabs) }}' }" class="w-full">
         <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()"
-            class="flex gap-2 overflow-x-auto border-b border-outline dark:border-outline-dark {{ $user ? 'sticky top-16 z-20' : 'sticky top-0 z-20' }} bg-light-bg-primary dark:bg-dark-bg-primary {{ $border ? 'px-4' : '' }}"
+            class="flex gap-2 overflow-x-auto border-b border-outline dark:border-outline-dark {{ $user ? 'sticky top-14 md:top-16 z-20' : 'sticky top-0 z-20' }} bg-light-bg-primary dark:bg-dark-bg-primary {{ $border ? 'px-4' : '' }}"
             role="tablist" aria-label="tab options">
             @foreach ($tabs as $name => $tab)
                 <button
@@ -53,7 +53,7 @@
 @else
     <div x-data="{ selectedTab: '{{ $defaultTab ?? array_key_first($tabs) }}' }" class="w-full">
         <div x-on:keydown.right.prevent="$focus.wrap().next()" x-on:keydown.left.prevent="$focus.wrap().previous()"
-            class="flex gap-2 overflow-x-auto {{ $user ? 'sticky top-16 z-20' : 'sticky top-0 z-20' }} bg-light-bg-primary dark:bg-dark-bg-primary {{ $border ? 'px-4' : '' }}"
+            class="flex gap-2 overflow-x-auto {{ $user ? 'sticky top-14 md:top-16 z-20' : 'sticky top-0 z-20' }} bg-light-bg-primary dark:bg-dark-bg-primary {{ $border ? 'px-4' : '' }}"
             role="tablist" aria-label="tab options">
             @foreach ($tabs as $name => $tab)
                 <button x-on:click="selectedTab = '{{ $name }}'"

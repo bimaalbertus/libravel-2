@@ -16,15 +16,20 @@
         <div x-data="{ showPassword: false }" class="relative">
             <input :type="showPassword ? 'text' : 'password'" name="{{ $name }}" id="{{ $name }}"
                 value="{{ old($name, $value) }}"
-                class="block {{ $width }} {{ $height }} px-2.5 py-2.5 leading-7 text-sm font-normal 
-            shadow-xs text-neutral-900 dark:text-neutral-100 bg-transparent 
-            border border-black/30 dark:border-white/30 rounded-lg 
-            placeholder-neutral-400 focus:border-none
-            focus:outline-none transition-all duration-300
-            @error($name) 
-                border-red-500 ring-2 ring-red-500 ring-opacity-50 outline-none 
-            @enderror"
-                {!! $attributes->merge(['class' => '']) !!} {{ $attributes }} />
+                @error($name) 
+                class="block {{ $width . ' ' . $height }} px-2.5 py-2.5 leading-7 text-sm font-normal 
+                                                                                shadow-xs text-neutral-900 dark:text-neutral-100 bg-transparent 
+                                                                                border border-black/30 dark:border-white/30 rounded-lg 
+                                                                                placeholder-neutral-400 focus:border-none
+                                                                                focus:outline-none transition-all duration-300 border-red-500 ring-2 ring-red-500 ring-opacity-50 outline-none" 
+            @enderror
+                {{ $attributes->merge([
+                    'class' => "block $width $height px-2.5 py-2.5 leading-7 text-sm font-normal 
+                                                                                                                                shadow-xs text-neutral-900 dark:text-neutral-100 bg-transparent 
+                                                                                                                                border border-black/30 dark:border-white/30 rounded-lg 
+                                                                                                                                placeholder-neutral-400 focus:border-none
+                                                                                                                                focus:outline-none transition-all duration-300",
+                ]) }} />
             <button type="button" @click="showPassword = !showPassword"
                 class="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-600 dark:text-neutral-300"
                 aria-label="Show password">
@@ -44,15 +49,20 @@
     @else
         <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}"
             value="{{ old($name, $value) }}"
-            class="block {{ $width }} {{ $height }} px-2.5 py-2.5 leading-7 text-sm font-normal 
-            shadow-xs text-neutral-900 dark:text-neutral-100 bg-transparent 
-            border border-black/30 dark:border-white/30 rounded-lg 
-            placeholder-neutral-400 focus:border-none
-            focus:outline-none transition-all duration-300
             @error($name) 
-                border-red-500 ring-2 ring-red-500 ring-opacity-50 outline-none 
-            @enderror"
-            {!! $attributes->merge(['class' => '']) !!} {{ $attributes }}>
+                class="block {{ $width . ' ' . $height }} px-2.5 py-2.5 leading-7 text-sm font-normal 
+                                                                                shadow-xs text-neutral-900 dark:text-neutral-100 bg-transparent 
+                                                                                border border-black/30 dark:border-white/30 rounded-lg 
+                                                                                placeholder-neutral-400 focus:border-none
+                                                                                focus:outline-none transition-all duration-300 border-red-500 ring-2 ring-red-500 ring-opacity-50 outline-none" 
+            @enderror
+            {{ $attributes->merge([
+                'class' => "block $width $height px-2.5 py-2.5 leading-7 text-sm font-normal 
+                                                                                                        shadow-xs text-neutral-900 dark:text-neutral-100 bg-transparent 
+                                                                                                        border border-black/30 dark:border-white/30 rounded-lg 
+                                                                                                        placeholder-neutral-400 focus:border-none
+                                                                                                        focus:outline-none transition-all duration-300",
+            ]) }}>
     @endif
     @if ($error)
         <small class="pl-0.5 text-red-500">{{ $error }}</small>

@@ -40,7 +40,7 @@ return [
         'favorite' => 'Favorit'
     ],
     'action' => [
-        'get_started' => 'Mulai'
+        'get_started' => 'Mulai sekarang'
     ],
     'jumbotron' => [
         'find_some_book' => 'Temukan Beberapa Buku',
@@ -73,9 +73,20 @@ return [
         'livewire' => 'Laravel Livewire',
         'tailwind' => 'Tailwind CSS',
         'alpine' => 'Alpine JS',
-        'rights_reserved' => '© 2024 Libravel Inc.',
+        'rights_reserved' => '© 2024-2025 Libravel Inc.',
     ],
 
     'show_more' => 'Lebih banyak',
     'show_less' => 'Lebih sedikit',
+
+    'errors' => [
+        '404' => [
+            'heading' => 'Maaf, halaman yang Anda cari tidak ditemukan',
+            'content' => 'Silakan coba lagi nanti'
+        ],
+        '500' => [
+            'heading' => 'Ups! Terjadi kesalahan di pihak kami',
+            'content' => 'Silakan coba lagi nanti'
+        ]
+    ]
 ];

@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "arielmejiadev/larapex-charts": "^2.1",
         "awcodes/filament-quick-create": "^3.6",
         "awcodes/light-switch": "^1.0",
@@ -29,6 +29,7 @@
         "hasnayeen/themes": "^3.0",
         "hydrat/filament-table-layout-toggle": "*",
         "ibrahimbougaoua/filasortable": "^1.0",
+        "jaybizzle/crawler-detect": "^1.3",
         "joaopaulolndev/filament-edit-profile": "^1.0",
         "joshembling/image-optimizer": "^1.4",
         "laravel/framework": "^11.31",

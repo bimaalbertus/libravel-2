@@ -22,6 +22,8 @@ export default {
                 "infinite-scroll": "infinite-scroll 25s linear infinite",
                 "infinite-scroll-backward":
                     "infinite-scroll-backward 25s linear infinite",
+                "text-reveal":
+                    "text-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1)",
             },
             keyframes: {
                 "infinite-scroll": {
@@ -31,6 +33,14 @@ export default {
                 "infinite-scroll-backward": {
                     from: { transform: "translateX(-100%)" },
                     to: { transform: "translateX(0)" },
+                },
+                "text-reveal": {
+                    "0%": {
+                        transform: "translate(0, 100%)",
+                    },
+                    "100%": {
+                        transform: "translate(0, 0)",
+                    },
                 },
             },
             fontFamily: {

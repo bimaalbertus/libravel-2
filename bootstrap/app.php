@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'member' => \App\Http\Middleware\MemberMiddleware::class,
             'authenticate' => \App\Http\Middleware\Authenticate::class,
             'username' => \App\Http\Middleware\UsernameMiddleware::class,
+            'visitors' => \App\Http\Middleware\LogVisit::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

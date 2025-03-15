@@ -14,6 +14,7 @@ class UserReview extends Component
     public $book_slug;
     public $userReview;
     public $deleteModal = false;
+    public $hidden;
 
     protected $listeners = ['reviewAdded' => 'refreshReview'];
 
@@ -27,6 +28,8 @@ class UserReview extends Component
         $this->userReview = Review::where('book_id', $this->book_id)
             ->where('user_id', Auth::id())
             ->first();
+
+        $this->hidden = $this->userReview ? !$this->userReview->isVisible() : false;
     }
 
     public function deleteReview()
@@ -39,8 +42,8 @@ class UserReview extends Component
                 ->where('user_id', Auth::id())
                 ->delete();
 
-            $this->deleteModal = false;
-            Toaster::success(__('review_deleted'));
+            $this->js('window.location.reload()');
+            Toaster::success(__('review.review_deleted'));
         }
     }
 
@@ -51,7 +54,7 @@ class UserReview extends Component
 
     public function render()
     {
-        $reviews = Review::where('book_id', $this->book_id)->latest()->get();
+        $reviews = Review::visible()->where('book_id', $this->book_id)->latest()->get();
         return view('livewire.user-review', compact('reviews'));
     }
 }

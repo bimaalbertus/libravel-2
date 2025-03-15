@@ -67,5 +67,12 @@ return [
         'avatar_helper' => 'Avatar bersifat opsional, tetapi sangat disarankan.',
         'avatar_header' => 'Pilih Avatar Anda',
         'avatar_success' => 'Avatar diubah'
+    ],
+
+    'bio' => [
+        'label' => 'Bio',
+        'desc' => 'Ceritakan sedikit tentang diri Anda. Bagikan minat, keterampilan, atau apa pun yang ingin orang lain ketahui',
+        'success' => 'Bio Anda berhasil diperbarui',
+        'rule' => 'Harap gunakan maksimal 500 karakter'
     ]
 ];

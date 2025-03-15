@@ -88,7 +88,7 @@ class Book extends Model implements HasMedia
 
     public function downloads()
     {
-        return $this->hasMany(Downloads::class);
+        return $this->hasMany(Download::class);
     }
 
     public function getMediaBasePath(Media $media): string
@@ -104,7 +104,7 @@ class Book extends Model implements HasMedia
 
         $this->addMediaCollection('book.documents')
             ->singleFile()
-            ->acceptsMimeTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
+            ->acceptsMimeTypes(['application/pdf']);
     }
 
     public function getCoverPath($type = 'single')

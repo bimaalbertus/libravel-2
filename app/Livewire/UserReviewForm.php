@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\UserReview as Review;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Masmerise\Toaster\Toaster;
 
 class UserReviewForm extends Component
@@ -40,29 +41,37 @@ class UserReviewForm extends Component
 
     public function saveRating()
     {
-        $this->validate([
-            'rating' => 'required|numeric|min:0.5|max:5',
-            'reviewText' => 'min:3|max:1000',
-        ]);
+        try {
+            $this->validate([
+                'rating' => 'required|numeric|min:0.5|max:5',
+                'reviewText' => 'nullable|max:2000',
+            ]);
 
-        if (Auth::check()) {
-            Review::updateOrCreate(
-                [
-                    'user_id' => Auth::id(),
-                    'book_id' => $this->bookId,
-                ],
-                [
-                    'rating' => $this->rating,
-                    'review_text' => $this->reviewText,
-                ]
-            );
+            if (Auth::check()) {
+                Review::updateOrCreate(
+                    [
+                        'user_id' => Auth::id(),
+                        'book_id' => $this->bookId,
+                    ],
+                    [
+                        'rating' => $this->rating,
+                        'review_text' => $this->reviewText,
+                    ]
+                );
 
-            $this->savedRating = $this->rating;
-            $this->savedReview = $this->reviewText;
-            $this->hasReviewed = true;
+                $this->savedRating = $this->rating;
+                $this->savedReview = $this->reviewText;
+                $this->hasReviewed = true;
 
-            Toaster::success(__('review.review_saved'));
-            return redirect()->route('book.detail', ['id' => $this->bookId, 'slug' => $this->bookSlug]);
+                Toaster::success(__('review.review_saved'));
+                return redirect()->route('book.detail', ['id' => $this->bookId, 'slug' => $this->bookSlug]);
+            }
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $fieldErrors) {
+                foreach ($fieldErrors as $error) {
+                    Toaster::error($error);
+                }
+            }
         }
     }
 

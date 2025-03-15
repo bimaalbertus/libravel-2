@@ -40,6 +40,8 @@ class DeleteAccount extends Component
         $this->isOpen = false;
 
         Auth::logout();
+
+        return redirect()->route('auth.login');
     }
 
     public function render()

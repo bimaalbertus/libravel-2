@@ -73,9 +73,20 @@ return [
         'livewire' => 'Laravel Livewire',
         'tailwind' => 'Tailwind CSS',
         'alpine' => 'Alpine JS',
-        'rights_reserved' => '© 2024 Libravel Inc.',
+        'rights_reserved' => '© 2024-2025 Libravel Inc.',
     ],
 
     'show_more' => 'Show more',
     'show_less' => 'Show less',
+
+    'errors' => [
+        '404' => [
+            'heading' => 'Sorry, the page you are looking for could not be found',
+            'content' => 'Please try again later'
+        ],
+        '500' => [
+            'heading' => 'Oops! Something went wrong on our end',
+            'content' => 'Please try again later'
+        ]
+    ]
 ];

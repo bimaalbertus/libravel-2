@@ -95,15 +95,15 @@ setTheme(theme)" @click.away="open = false" class="relative">
                     class="absolute -left-20">
                     <div
                         class="flex flex-col justify-center w-32 bg-light-bg-secondary dark:bg-dark-bg-secondary mt-5 p-1 rounded-lg font-geist-sans font-medium">
-                        <span @click.prevent="setTheme('light')"
+                        <span @click.prevent="setTheme('light')" x-on:click="iconOpen = false"
                             class="inline-flex items-center gap-2 p-1.5 rounded-md cursor-pointer hover:text-neutral-200 hover:bg-light-primary dark:hover:bg-dark-primary">
                             <p>Light</p>
                         </span>
-                        <span @click.prevent="setTheme('dark')"
+                        <span @click.prevent="setTheme('dark')" x-on:click="iconOpen = false"
                             class="inline-flex items-center gap-2 p-1.5 rounded-md cursor-pointer hover:text-neutral-200 hover:bg-light-primary dark:hover:bg-dark-primary">
                             <p>Dark</p>
                         </span>
-                        <span @click.prevent="setTheme('system')"
+                        <span @click.prevent="setTheme('system')" x-on:click="iconOpen = false"
                             class="inline-flex items-center gap-2 p-1.5 rounded-md cursor-pointer hover:text-neutral-200 hover:bg-light-primary dark:hover:bg-dark-primary">
                             <p>System</p>
                         </span>

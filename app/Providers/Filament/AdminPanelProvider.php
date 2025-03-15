@@ -44,8 +44,8 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id('libramint')
+            ->path('libramint')
             ->databaseNotifications()
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->globalSearchFieldSuffix(fn(): ?string => match (Platform::detect()) {

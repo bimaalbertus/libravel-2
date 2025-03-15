@@ -104,13 +104,13 @@ class BookResource extends Resource
                                     ->columnSpan(['lg' => 2])
                                     ->collapsible(),
 
-                                Section::make('file')
+                                Section::make(ucfirst('file'))
                                     ->schema([
                                         SpatieMediaLibraryFileUpload::make('uploaded_file')
                                             ->label(__('book/fields.label.image.upload.label'))
                                             ->collection('book.documents')
                                             ->disk('public')
-                                            ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                                            ->acceptedFileTypes(['application/pdf'])
                                             ->directory('books/documents')
                                     ]),
 
@@ -225,29 +225,6 @@ class BookResource extends Resource
                     ->label(__('book/fields.label.status.is_fiction.title'))
                     ->trueLabel(__('book/fields.label.status.is_fiction.title'))
                     ->falseLabel('Non-Fiction'),
-                Filter::make('release_date')
-                    ->form([
-                        DatePicker::make('from')->label('From'),
-                        DatePicker::make('to')->label('To'),
-                    ])
-                    ->query(function ($query, array $data) {
-                        return $query
-                            ->when($data['from'], fn($q) => $q->where('release_date', '>=', $data['from']))
-                            ->when($data['to'], fn($q) => $q->where('release_date', '<=', $data['to']));
-                    })
-                    ->indicateUsing(function (array $data) {
-                        $indicators = [];
-
-                        if ($data['from'] ?? null) {
-                            $indicators['from'] = 'From: ' . $data['from'];
-                        }
-
-                        if ($data['to'] ?? null) {
-                            $indicators['to'] = 'To: ' . $data['to'];
-                        }
-
-                        return $indicators;
-                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -266,21 +243,6 @@ class BookResource extends Resource
         return [
             //
         ];
-    }
-
-    public static function getWidgets(): array
-    {
-        return [
-            BookOverview::class,
-        ];
-    }
-
-    public static function getRecordSubNavigation(Page $page): array
-    {
-        return $page->generateNavigationItems([
-            Pages\ViewBook::class,
-            Pages\EditBook::class,
-        ]);
     }
 
     public static function infolist(Infolist $infolist): Infolist
@@ -312,14 +274,14 @@ class BookResource extends Resource
                                         Components\TextEntry::make('authors.fullname')
                                             ->label(__('book/fields.label.author')),
 
-                                        Components\TextEntry::make('is_fiction')
+                                        Components\IconEntry::make('is_fiction')
+                                            ->boolean()
                                             ->label(__('book/fields.label.status.is_fiction.title'))
-                                            ->getStateUsing(fn($record) => $record->is_fiction ? 'true' : 'false')
                                             ->color(fn($record) => $record->is_fiction ? 'success' : 'danger'),
 
-                                        Components\TextEntry::make('is_teachers_book')
+                                        Components\IconEntry::make('is_teachers_book')
+                                            ->boolean()
                                             ->label(__('book/fields.label.status.is_teachers_book.title'))
-                                            ->getStateUsing(fn($record) => $record->is_teachers_book ? 'true' : 'false')
                                             ->color(fn($record) => $record->is_teachers_book ? 'success' : 'danger'),
 
                                         Components\TextEntry::make('genres.key')
@@ -357,6 +319,15 @@ class BookResource extends Resource
             ]);
     }
 
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\ViewBook::class,
+            Pages\EditBook::class,
+            Pages\ManageBookReviews::class,
+        ]);
+    }
+
     public static function getPages(): array
     {
         return [
@@ -364,6 +335,7 @@ class BookResource extends Resource
             'create' => Pages\CreateBook::route('/create'),
             'edit' => Pages\EditBook::route('/{record}/edit'),
             'view' => Pages\ViewBook::route('/{record}'),
+            'reviews' => Pages\ManageBookReviews::route('/{record}/reviews'),
         ];
     }
 }

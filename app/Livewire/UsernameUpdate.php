@@ -45,7 +45,7 @@ class UsernameUpdate extends Component
 
         Toaster::success(__('profile.saved_successfully'));
 
-        return redirect()->route('profile.index', $this->username);
+        return redirect()->route('profile.index', $user->username);
     }
 
     public function render()

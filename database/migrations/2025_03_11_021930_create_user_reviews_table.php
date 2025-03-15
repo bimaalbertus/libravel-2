@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('book_id');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
-            $table->text('review_text');
+            $table->text('review_text')->nullable();
             $table->decimal('rating', 3, 1);
+            $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
     }

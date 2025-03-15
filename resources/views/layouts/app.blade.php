@@ -22,7 +22,7 @@
         href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
-    @stack('style')
+    @stack('styles')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles()
     @livewireScripts()
@@ -46,25 +46,14 @@
 
     <x-toaster-hub />
 
-    <div class="hidden md:block">
-        <x-alert position="top-right" :duration="5000" :maxToasts="5" :animation="true" :pauseOnHover="true"
-            :showProgress="true" />
-    </div>
-
-    <div class="md:hidden">
-        <x-alert position="bottom-center" :duration="5000" :maxToasts="5" :animation="true" :pauseOnHover="true"
-            :showProgress="true" />
-    </div>
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     @stack('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('button[data-href]').forEach(button => {
+            document.querySelectorAll('[data-href]').forEach(button => {
                 button.addEventListener('click', () => {
                     const href = button.getAttribute('data-href');
                     const target = button.getAttribute('data-target') || '_self';

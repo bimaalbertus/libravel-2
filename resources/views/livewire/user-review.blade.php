@@ -3,6 +3,9 @@
         <div class="mb-16">
             @if (\App\Models\UserReview::where('book_id', $book_id)->where('user_id', auth()->id())->first())
                 <div class="flex flex-col border-2 border-neutral-500 p-4 rounded-xl">
+                    @if (!$userReview->isVisible())
+                        <x-alert :message="__('review.review_hidden')" class="mb-8" />
+                    @endif
                     <div class="flex justify-between">
                         <h1 class="font-semibold text-xl mb-2 capitalize">{{ __('review.your_review') }}:</h1>
                         <div>
@@ -19,7 +22,7 @@
                         <x-rating :rate="$userReview->rating" :scale="5" />
                         @if ($userReview->review_text)
                             <p class="mt-8 text-sm capitalize">{{ __('review.label') }}:</p>
-                            <p>{{ $userReview->review_text }}</p>
+                            <x-show-more :text="$userReview->review_text" class="text-justify" />
                         @endif
                     </div>
                 </div>
@@ -54,13 +57,13 @@
             @else
                 <div class="flex justify-between">
                     <h1 class="font-semibold text-xl mb-2 capitalize">{{ __('review.your_review') }}:</h1>
-                    <div>
-                        <x-button @click="ratingOpen = !ratingOpen" class="p-2 capitalize" width="w-42"><i
-                                class="ti ti-pencil-plus mr-1"></i>
-                            {{ __('review.write') }}</x-button>
-                    </div>
                 </div>
-                <p>{{ __('review.no_review') }}.</p>
+                <div class="flex flex-col gap-4 items-center justify-center mt-8">
+                    <p>{{ __('review.haven\'t_review') }}.</p>
+                    <x-button @click="ratingOpen = !ratingOpen" class="p-2 capitalize" width="w-42"><i
+                            class="ti ti-pencil-plus mr-1"></i>
+                        {{ __('review.write') }}</x-button>
+                </div>
             @endif
 
             {{-- Rating Modal --}}
@@ -72,12 +75,12 @@
         </div>
     @endif
 
-    <div>
-        <h1 class="font-semibold text-xl capitalize">{{ __('review.user_review') }}:</h1>
+    <div class="flex flex-col">
+        <h1 class="font-semibold text-xl capitalize">{{ __('review.user_reviews') }}:</h1>
         @forelse ($reviews as $review)
             <div class="p-4 mb-8">
                 <div class="flex items-start gap-2">
-                    {{-- {!! $user->getAvatar(40, 'circle') !!} --}}
+                    <x-avatar-display :user="$review->user" type="circle" size="40" />
                     <div class="flex flex-col">
                         <span class="text-sm">{{ $review->user->username }}</span>
                         <span
@@ -88,10 +91,10 @@
                     </div>
                 </div>
 
-                <p class="mt-4 text-justify">{{ $review->review_text }}</p>
+                <x-show-more :text="$review->review_text" class="text-justify mt-4" />
             </div>
         @empty
-            <p class="text-gray-500">{{ __('review.no_review') }}.</p>
+            <p class="text-gray-500 mx-auto mt-8">{{ __('review.no_review') }}.</p>
         @endforelse
     </div>
 </div>

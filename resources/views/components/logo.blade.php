@@ -18,7 +18,7 @@
 
     @case('name')
         <div>
-            <h1 class="text-2xl font-semibold font-afacad-flux">{{ env('SHORT_NAME') }}</h1>
+            <h1 class="text-2xl font-semibold font-afacad-flux">{{ config('app.short_name') }}</h1>
         </div>
     @break
 
@@ -32,6 +32,6 @@
                 <path
                     d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z" />
             </svg>
-            <h1 class="text-2xl font-semibold font-afacad-flux">{{ env('SHORT_NAME') }}</h1>
+            <h1 class="text-2xl font-semibold font-afacad-flux">{{ config('app.short_name') }}</h1>
         </div>
 @endswitch

@@ -12,7 +12,7 @@
 
         <!-- Joined and Edit buttons (top right) -->
         <div class="absolute top-4 right-4 flex items-center space-x-2">
-            <div class="text-sm px-3 py-1 rounded-full bg-neutral-500 dark:bg-neutral-700 bg-opacity-80">
+            <div class="text-sm px-3 py-1 rounded-full bg-neutral-900 dark:bg-neutral-700 text-white bg-opacity-80">
                 {{ __('profile.joined') . ' ' . $joined }}
             </div>
             <x-button bgColor="bg-yellow-500" x-on:click="selectedTab = 'account'">
@@ -26,15 +26,19 @@
         <!-- Profile Info Section (horizontal layout) -->
         <div class="relative -mt-16">
             <!-- Profile and Details in Row Layout -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-start space-x-4">
                 <!-- Profile Picture -->
                 <div
-                    class="h-36 w-36 rounded-md overflow-hidden border-4 border-light-bg-primary dark:border-dark-bg-primary">
+                    class="group h-36 w-36 rounded-md overflow-hidden border-4 border-light-bg-primary dark:border-dark-bg-primary">
                     <x-avatar-display size="144" />
+                    <div x-on:click="selectedTab = 'account'"
+                        class="absolute inset-0 size-36 bg-black/50 dark:bg-black/70 text-white flex justify-center items-center rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                        <i class="ti ti-camera text-3xl"></i>
+                    </div>
                 </div>
 
                 <!-- User Info -->
-                <div class="pb-4">
+                <div class="pb-4 max-w-xl">
                     <p class="text-light-text-secondary dark:text-dark-text-secondary text-sm">
                         {{ $user->username }}
                     </p>
@@ -58,8 +62,13 @@
                             <span class="font-medium">{{ $user->isAdmin() ? 'Admin' : '' }}</span>
                         @endif
                     </div>
+                    @if ($user->bio)
+                        <x-show-more :text="$user->bio" />
+                    @endif
                 </div>
             </div>
+
+            <x-account::reviews class="mt-8" />
         </div>
     </div>
 </div>

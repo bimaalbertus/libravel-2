@@ -32,13 +32,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             GenreSeeder::class,
-            BookSeeder::class,
-            BannerSeeder::class,
-            MemberSeeder::class,
             SettingSeeder::class,
             AuthorSeeder::class,
-            BookRelationSeeder::class,
-            CollectionSeeder::class,
             AvatarSeeder::class
         ]);
     }

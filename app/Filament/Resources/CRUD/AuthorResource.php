@@ -6,10 +6,15 @@ use App\Filament\Resources\CRUD\AuthorResource\Pages;
 use App\Models\Author;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Infolists\Components;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
+use Filament\Pages\Page;
+use Filament\Pages\SubNavigationPosition;
 
 class AuthorResource extends Resource
 {
@@ -20,6 +25,12 @@ class AuthorResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $recordTitleAttribute = 'fullname';
     protected static ?int $navigationSort = 1;
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
+
+    public static function getLabel(): string
+    {
+        return __('book/fields.label.author');
+    }
 
     public static function getGlobalSearchResultUrl(Model $record): string
     {
@@ -149,7 +160,9 @@ class AuthorResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -158,11 +171,77 @@ class AuthorResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Components\Grid::make(2)
+                    ->schema([
+                        Components\Section::make()
+                            ->schema([
+                                Components\Split::make([
+                                    Components\ImageEntry::make('image_path')
+                                        ->hiddenLabel()
+                                        ->getStateUsing(function ($record) {
+                                            return $record->getCoverPath();
+                                        })
+                                        ->width(200)
+                                        ->height(300)
+                                        ->grow(false),
+                                    Components\Grid::make(1)
+                                        ->schema([
+                                            Components\Grid::make()
+                                                ->schema([
+                                                    Components\TextEntry::make('fullname')
+                                                        ->label(__('profile.fullname')),
+
+                                                    Components\TextEntry::make('slug')
+                                                        ->label(__('book/fields.label.slug'))
+                                                        ->color('gray'),
+
+                                                    Components\TextEntry::make('birthdate')
+                                                        ->label(ucfirst(__('author.birth')))
+                                                        ->badge()
+                                                        ->date(),
+                                                    Components\TextEntry::make('deathdate')
+                                                        ->label(ucfirst(__('author.death')))
+                                                        ->badge()
+                                                        ->date(),
+                                                ]),
+                                            Components\TextEntry::make('bio')
+                                                ->label(ucfirst(__('author.bio')))
+                                                ->prose()
+                                                ->markdown(),
+                                        ]),
+                                ])->from('lg'),
+                            ]),
+
+                        Components\Section::make(__('book/fields.page.title'))
+                            ->schema(function ($record): array {
+                                $books = $record->books;
+                                return [
+                                    Components\ViewEntry::make('books')
+                                        ->view('filament.resources.collection-resource.image-infolist', ['books' => $books])
+                                ];
+                            })
+                            ->collapsible(),
+                    ])
+            ]);
+    }
+
     public static function getRelations(): array
     {
         return [
             //
         ];
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\ViewAuthor::class,
+            Pages\EditAuthor::class,
+        ]);
     }
 
     public static function getPages(): array

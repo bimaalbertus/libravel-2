@@ -32,7 +32,7 @@ class LatestBooks extends BaseWidget
             ])
             ->actions([
                 Tables\Actions\Action::make('open')
-                    ->url(fn(Book $record): string => BookResource::getUrl('edit', ['record' => $record])),
+                    ->url(fn(Book $record): string => BookResource::getUrl('view', ['record' => $record])),
             ]);
     }
 }

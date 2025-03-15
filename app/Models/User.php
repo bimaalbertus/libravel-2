@@ -7,16 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use Laravolt\Avatar\Facade as LaravoltAvatar;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Filament\Models\Contracts\HasName;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use TomatoPHP\FilamentLanguageSwitcher\Traits\InteractsWithLanguages;
 
-class User extends Authenticatable implements FilamentUser, HasName
+class User extends Authenticatable implements FilamentUser, HasName, HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
-    use \TomatoPHP\FilamentLanguageSwitcher\Traits\InteractsWithLanguages;
+    use HasFactory, Notifiable, HasRoles, InteractsWithLanguages, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +29,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         'fullname',
         'username',
         'password',
+        'bio',
         'status',
         'gender',
         'major',
@@ -66,6 +69,15 @@ class User extends Authenticatable implements FilamentUser, HasName
         return '@' . $value;
     }
 
+    public function setUsernameAttribute($value)
+    {
+        if (substr($value, 0, 1) === '@') {
+            $this->attributes['username'] = substr($value, 1);
+        } else {
+            $this->attributes['username'] = $value;
+        }
+    }
+
     public function isAdmin(): bool
     {
         return $this->is_admin;
@@ -88,6 +100,10 @@ class User extends Authenticatable implements FilamentUser, HasName
             return $this->avatar->getFirstMediaUrl('avatars');
         }
 
+        if ($this->getFirstMediaUrl('user.avatar')) {
+            return $this->getFirstMediaUrl('user.avatar');
+        }
+
         $name = !empty($this->fullname) ? $this->fullname : $this->username;
 
         return \Laravolt\Avatar\Facade::create(strtoupper($name))
@@ -97,6 +113,25 @@ class User extends Authenticatable implements FilamentUser, HasName
             ->setFontFamily('Product Sans')
             ->setShape($shape)
             ->toSvg();
+    }
+
+    public function getMediaBasePath(Media $media): string
+    {
+        return 'user/avatar';
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('user/avatar')
+            ->singleFile()
+            ->acceptsMimeTypes(['image/jpeg', 'image/png']);
+    }
+
+    public function registerAllMediaConversions(): void
+    {
+        $this->addMediaConversion('webp')
+            ->width(250)
+            ->height(250);
     }
 
     public function major()
@@ -131,6 +166,6 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function downloads()
     {
-        return $this->hasMany(Downloads::class);
+        return $this->hasMany(Download::class);
     }
 }

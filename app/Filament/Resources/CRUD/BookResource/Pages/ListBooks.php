@@ -6,6 +6,7 @@ use App\Filament\Resources\CRUD\BookResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Hydrat\TableLayoutToggle\Concerns\HasToggleableTable;
+use App\Filament\Resources\CRUD\BookResource\Widgets\BookOverview;
 
 class ListBooks extends ListRecords
 {
@@ -15,6 +16,13 @@ class ListBooks extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            BookOverview::class,
         ];
     }
 }

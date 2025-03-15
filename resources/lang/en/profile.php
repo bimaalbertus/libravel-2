@@ -67,5 +67,12 @@ return [
         'avatar_helper' => 'An avatar is optional but strongly recommended.',
         'avatar_header' => 'Select Your Avatar',
         'avatar_success' => 'Avatar changed.'
+    ],
+
+    'bio' => [
+        'label' => 'Bio',
+        'desc' => 'Tell us a bit about yourself. Share your interests, skills, or anything you\'d like others to know',
+        'success' => 'Your bio has been updated successfully',
+        'rule' => 'Please use 500 characters at maximum'
     ]
 ];

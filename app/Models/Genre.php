@@ -12,7 +12,7 @@ class Genre extends Model
     use HasFactory;
 
     protected $table;
-    protected $guarded = [];
+    protected $fillable = ['key', 'icon'];
 
     public function books()
     {

@@ -11,11 +11,13 @@
                 </h1>
                 <span
                     class="font-geist-sans text-3xl font-semibold text-white">{{ __('navigation/navigation.jumbotron.subtitle_1') }}.</span>
-                <x-animated-button href="/auth/login" class="active:scale-90 transition-transform ease-linear"
+                <x-animated-button href="/auth/login" class="active:scale-90 transition-transform ease-linear capitalize"
                     name="{{ __('navigation/navigation.action.get_started') }}"
                     bgColor="bg-white dark:bg-dark-bg-tertiary" textColor="text-black dark:text-white"
-                    fontSize="text-lg" translateValue="group-hover:translate-x-28" containerWidth="w-40"
-                    containerHeight="h-12" iconBgColor="bg-dark-bg-tertiary dark:bg-light-bg-primary size-12"
+                    fontSize="text-lg"
+                    translateValue="{{ app()->getLocale() === 'en' ? 'group-hover:translate-x-28' : 'group-hover:translate-x-[135px]' }}"
+                    containerWidth="{{ app()->getLocale() === 'en' ? 'w-40' : 'w-[184px]' }}" containerHeight="h-12"
+                    iconBgColor="bg-dark-bg-tertiary dark:bg-light-bg-primary size-12"
                     iconTextColor="text-white dark:text-black" fontWeight="medium" icon="ti-login-2" />
             </div>
         </section>

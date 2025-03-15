@@ -3,7 +3,26 @@
         <nav
             class="fixed w-full flex items-center justify-between h-14 p-4 md:py-8 lg:px-32 font-euclid-circular-b z-[100] bg-light-bg-primary dark:bg-dark-bg-primary">
 
-            <x-nav-link />
+            <div class="flex items-center lg:gap-8">
+                <button class="block lg:hidden w-10 h-10 relative focus:outline-none mr-4"
+                    @click="navbarOpen = !navbarOpen">
+                    <div class="block w-5 absolute left-1/2 top-1/2  transform  -translate-x-1/2 -translate-y-1/2">
+                        <span aria-hidden="true"
+                            class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out"
+                            :class="{ 'rotate-45': navbarOpen, ' -translate-y-1.5': !navbarOpen }"></span>
+                        <span aria-hidden="true"
+                            class="block absolute  h-0.5 w-5 bg-current   transform transition duration-500 ease-in-out"
+                            :class="{ 'opacity-0': navbarOpen }"></span>
+                        <span aria-hidden="true"
+                            class="block absolute  h-0.5 w-5 bg-current transform  transition duration-500 ease-in-out"
+                            :class="{ '-rotate-45': navbarOpen, ' translate-y-1.5': !navbarOpen }"></span>
+                    </div>
+                </button>
+                <a href="/">
+                    <x-logo type="name" />
+                </a>
+                <x-nav-link />
+            </div>
 
             <div class="flex items-center gap-2 md:hidden">
                 <livewire:live-search isIconOnly />
@@ -37,7 +56,7 @@
                         <div>
                             @if ($user->isAdmin())
                                 <div class="py-2 px-2">
-                                    <a href="{{ route('filament.admin.pages.dashboard') }}"
+                                    <a href="{{ route('filament.libramint.pages.dashboard') }}"
                                         class="inline-flex items-center justify-between w-full gap-2 py-1 px-2 hover:bg-light-accent-secondary rounded-lg dark:hover:bg-dark-primary hover:text-white transition-all duration-100">{{ __('navigation/navigation.menus.dashboard') }}<i
                                             class="ti ti-brand-tabler mt-1 text-lg"></i></a>
                                 </div>

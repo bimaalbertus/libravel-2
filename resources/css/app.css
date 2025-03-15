@@ -50,8 +50,33 @@
     box-shadow: 0 4px 20px rgba(210, 168, 255, 0.5);
 }
 
+.dark .box-shadow-purple {
+    box-shadow: none;
+}
+
 [x-cloak] {
     display: none !important;
+}
+
+.grid-van {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.grid-van-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.grid-van-item span {
+    font-size: 2rem;
+}
+
+.grid-van-item p {
+    font-size: 1rem;
 }
 
 ::-webkit-scrollbar {

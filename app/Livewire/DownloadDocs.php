@@ -10,6 +10,7 @@ use Livewire\Component;
 class DownloadDocs extends Component
 {
     public $bookId;
+    public $downloadOpen = false;
 
     public function mount($bookId)
     {
@@ -29,17 +30,25 @@ class DownloadDocs extends Component
                 'user_agent' => request()->userAgent(),
             ]);
 
-            return response()->download(
-                $book->getFirstMedia('book.documents')->getPath(),
-                $book->title . '.' . $book->getFirstMedia('book.documents')->extension
+            $this->downloadOpen = false;
+
+            return redirect()->route(
+                'private-file.download',
+                [
+                    'book' => $book,
+                    'mediaId' => $book->getFirstMedia('book.documents')->id,
+                ]
             );
         }
 
-        abort(404, 'Dokumen tidak ditemukan.');
+        abort(404);
     }
 
     public function render()
     {
-        return view('livewire.download-docs');
+        $book = Book::find($this->bookId);
+        $size = $book->getFirstMedia('book.documents')->human_readable_size ?? null;
+
+        return view('livewire.download-docs', ['book' => $book, 'size' => $size]);
     }
 }

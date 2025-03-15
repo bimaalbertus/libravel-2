@@ -15,6 +15,11 @@
 
      <div
          class="flex flex-col border bg-white dark:bg-black/40 text-black dark:text-white border-black/30 dark:border-white/30 rounded-lg">
+         <livewire:bio />
+     </div>
+
+     <div
+         class="flex flex-col border bg-white dark:bg-black/40 text-black dark:text-white border-black/30 dark:border-white/30 rounded-lg">
          <livewire:fullname-update />
      </div>
 

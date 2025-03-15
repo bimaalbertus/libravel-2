@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', ($user->fullname ?? $user->username) . ' -')
+@section('title', $user->username . ' -')
 
 @php
     $tabs = [
@@ -24,8 +24,6 @@
             <x-tabs :tabs="$tabs" default-tab="infos" :has-icons="true">
                 <x-slot name="tab_infos">
                     <x-account::profile-banner />
-
-                    <h1 class="font-semibold text-2xl">{{ $user->username }}'s Want to Read List</h1>
                 </x-slot>
                 <x-slot name="tab_account">
                     <div class="text-light-text-secondary dark:text-dark-text-secondary text-base capitalize">
