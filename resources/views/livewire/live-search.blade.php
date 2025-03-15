@@ -84,8 +84,6 @@
                                     <div class="cursor-pointer rounded-lg py-3 px-5 transition hover:bg-neutral-700"
                                         onclick="window.location.href = '{{ route('book.detail', [$book->id, $book->slug]) }}'">
                                         <h3 class="font-semibold">{{ $book->title }}</h3>
-                                        <p class="text-sm text-neutral-400">
-                                            {{ \Illuminate\Support\Str::limit($book->synopsis, 150) }}</p>
                                     </div>
                                 @endforeach
                             </div>
@@ -120,8 +118,6 @@
                                     <div class="cursor-pointer rounded-lg py-3 px-5 transition hover:bg-neutral-700"
                                         onclick="window.location.href = '{{ route('author.detail', [$author->id, $author->slug]) }}'">
                                         <h3 class="font-semibold">{{ $author->fullname }}</h3>
-                                        <p class="text-sm text-neutral-400">
-                                            {{ \Illuminate\Support\Str::limit($author->bio, 150) }}</p>
                                     </div>
                                 @endforeach
                             </div>

@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.4",
+        "php": "^8.2",
         "arielmejiadev/larapex-charts": "^2.1",
         "awcodes/filament-quick-create": "^3.6",
         "awcodes/light-switch": "^1.0",
@@ -19,6 +19,7 @@
         "cjmellor/browser-sessions": "*",
         "cloudinary-labs/cloudinary-laravel": "^2.2",
         "coolsam/flatpickr": "^3.1",
+        "erusev/parsedown": "^1.7",
         "filament/filament": "^3.2",
         "filament/notifications": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "^3.2",

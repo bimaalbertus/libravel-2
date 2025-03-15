@@ -18,9 +18,9 @@
 
     <x-modal open="openAvatar" :closeIcon="false" blur="none">
         <div x-cloak
-            class="overflow-y-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-black/30 dark:border-white/30 rounded-xl w-full">
-            <h3 class="text-lg font-bold mb-4 min-w-40 p-6">Select Your Avatar</h3>
-            <div class="flex flex-col items-center max-h-[540px] overflow-y-auto p-6">
+            class="overflow-y-auto bg-light-bg-secondary dark:bg-dark-bg-secondary border border-black/30 dark:border-white/30 rounded-xl w-full max-w-md md:max-w-full mx-auto">
+            <h3 class="text-lg font-bold mb-4 min-w-40 p-6 capitalize">{{ __('profile.avatar.select') }}</h3>
+            <div class="flex flex-col items-center max-h-96 overflow-y-auto p-6">
                 <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-8 mb-6">
                     @foreach ($avatars as $avatar)
                         <label class="block cursor-pointer" wire:click="$set('selectedAvatarId', {{ $avatar->id }})">

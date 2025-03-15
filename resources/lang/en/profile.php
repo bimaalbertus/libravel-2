@@ -66,7 +66,9 @@ return [
         'avatar_desc' => 'This is your avatar. Click on an avatar to select it, then save your choice.',
         'avatar_helper' => 'An avatar is optional but strongly recommended.',
         'avatar_header' => 'Select Your Avatar',
-        'avatar_success' => 'Avatar changed.'
+        'avatar_success' => 'Avatar changed.',
+        'select' => 'select an avatar from the list',
+        'upload_own' => 'upload your own avatar',
     ],
 
     'bio' => [

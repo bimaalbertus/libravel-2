@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
     @stack('styles')
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles()
-    @livewireScripts()
+    @filamentStyles()
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="{{ $bg }} text-light-text-primary dark:text-dark-text-primary scroll-smooth font-geist-sans">
@@ -46,6 +46,8 @@
 
     <x-toaster-hub />
 
+    @filamentScripts()
+    @livewireScripts()
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -58,7 +60,7 @@
                     const href = button.getAttribute('data-href');
                     const target = button.getAttribute('data-target') || '_self';
                     if (href) {
-                        window.open(href, target);
+                        window.open(href, target, 'noopener,noreferrer');
                     }
                 });
             });

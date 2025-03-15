@@ -22,7 +22,7 @@
                         <x-rating :rate="$userReview->rating" :scale="5" />
                         @if ($userReview->review_text)
                             <p class="mt-8 text-sm capitalize">{{ __('review.label') }}:</p>
-                            <x-show-more :text="$userReview->review_text" class="text-justify" />
+                            <x-show-more isMarkdown :text="$userReview->review_text" class="text-justify" />
                         @endif
                     </div>
                 </div>
@@ -68,9 +68,7 @@
 
             {{-- Rating Modal --}}
             <x-modal open="ratingOpen" :closeIcon="false">
-                <div class="p-4 bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-xl">
-                    <livewire:user-review-form :bookId="$book_id" :bookSlug="$book_slug" :ratingOpen="$ratingOpen" />
-                </div>
+                <livewire:user-review-form :bookId="$book_id" :bookSlug="$book_slug" :ratingOpen="$ratingOpen" />
             </x-modal>
         </div>
     @endif
@@ -80,7 +78,15 @@
         @forelse ($reviews as $review)
             <div class="p-4 mb-8">
                 <div class="flex items-start gap-2">
-                    <x-avatar-display :user="$review->user" type="circle" size="40" />
+                    @if ($review->user->avatar && $review->user->avatar->getFirstMediaUrl('avatars'))
+                        <img src="{{ $review->user->avatar->getFirstMediaUrl('avatars') }}" alt="Avatar"
+                            class="rounded-full size-[35px]" />
+                    @elseif($review->user->getFirstMediaUrl('user.avatar'))
+                        <img src="{{ $review->user->getFirstMediaUrl('user.avatar') }}" alt="Avatar"
+                            class="rounded-full size-[35px]" />
+                    @else
+                        {!! $review->user->getAvatar(35, 'circle') !!}
+                    @endif
                     <div class="flex flex-col">
                         <span class="text-sm">{{ $review->user->username }}</span>
                         <span
@@ -91,7 +97,7 @@
                     </div>
                 </div>
 
-                <x-show-more :text="$review->review_text" class="text-justify mt-4" />
+                <x-show-more isMarkdown :text="$review->review_text" class="text-justify mt-4" />
             </div>
         @empty
             <p class="text-gray-500 mx-auto mt-8">{{ __('review.no_review') }}.</p>

@@ -66,7 +66,9 @@ return [
         'avatar_desc' => 'Ini adalah avatar Anda. Klik pada avatar untuk memilihnya, lalu simpan pilihan Anda.',
         'avatar_helper' => 'Avatar bersifat opsional, tetapi sangat disarankan.',
         'avatar_header' => 'Pilih Avatar Anda',
-        'avatar_success' => 'Avatar diubah'
+        'avatar_success' => 'Avatar diubah',
+        'select' => 'Pilih avatar',
+        'upload_own' => 'Unggah avatar Anda',
     ],
 
     'bio' => [

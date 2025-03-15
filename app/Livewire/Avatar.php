@@ -27,19 +27,8 @@ class Avatar extends Component
     {
         /**  @var User $user */
         $user = Auth::user();
-
-        if ($this->newAvatar) {
-            $user->clearMediaCollection('user.avatar');
-            $user->addMedia($this->newAvatar->getRealPath())
-                ->toMediaCollection('user.avatar');
-            $user->update(['avatar_id' => null]);
-
-            Toaster::success(__('profile.avatar.avatar_success'));
-        } elseif ($this->selectedAvatarId) {
-            $user->clearMediaCollection('user.avatar');
-            $user->update(['avatar_id' => $this->selectedAvatarId]);
-            Toaster::success(__('profile.avatar.avatar_success'));
-        }
+        $user->update(['avatar_id' => $this->selectedAvatarId]);
+        Toaster::success(__('profile.avatar.avatar_success'));
 
         return redirect()->route('profile.index', $user->username);
     }

@@ -7,7 +7,7 @@
         this.rating = rating;
     }
 }">
-    <div>
+    <div class="p-4 bg-light-bg-secondary dark:bg-dark-bg-secondary rounded-xl w-full max-h-[720px]">
         <div class="flex items-center justify-between">
             <h3 class="text-lg font-semibold mb-2">{{ __('review.give_rating_and_review') }}</h3>
             <button x-on:click="ratingOpen = false" aria-label="close modal">
@@ -71,8 +71,7 @@
 
         <!-- Review Textarea -->
         <div class="mt-8 mb-4">
-            <x-textarea wire:model.defer="reviewText" name="reviewText" :error="$errors->first('reviewText')" width="w-full"
-                labelClass="capitalize" label="{{ __('review.your_review') }}" required />
+            {{ $this->form }}
         </div>
 
         <!-- Submit Button -->

@@ -1,7 +1,14 @@
-<div>
-    <x-filament-panels::form>
-        {{ $this->form }}
-    </x-filament-panels::form>
+@php
+    $isAdmin = Auth::user()->isAdmin();
+    $adminCount = \App\Models\User::where('is_admin', true)->count();
+@endphp
 
-    <x-filament-actions::modals />
-</div>
+@if ($isAdmin && $adminCount >= 1)
+    <div>
+        <x-filament-panels::form>
+            {{ $this->form }}
+        </x-filament-panels::form>
+
+        <x-filament-actions::modals />
+    </div>
+@endif

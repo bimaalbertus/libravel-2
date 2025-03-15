@@ -1,3 +1,4 @@
+<!-- resources/views/components/show-more-text.blade.php -->
 @props([
     'text' => '',
     'limit' => 150,
@@ -12,29 +13,35 @@
 ])
 
 @php
+    $parsedown = new Parsedown();
+    $htmlText = $parsedown->text($text);
 
-    $htmlText = Illuminate\Support\Str::markdown($text);
-
-    $plainText = strip_tags($htmlText);
-    $truncatedPlainText = Str::limit($plainText, $limit);
-
-    $truncatedHtml = strlen($plainText) > $limit ? '<span>' . $truncatedPlainText . '</span>' : $htmlText;
+    $htmlText = str($htmlText)->sanitizeHtml();
 @endphp
 
 <div x-data="{
     isExpanded: @js($expanded),
-    fullHtml: @js($htmlText),
-    truncatedHtml: @js($truncatedHtml),
+    fullText: @js($htmlText),
+    truncatedText: null,
+    init() {
+        this.truncatedText = this.fullText.length > {{ $limit }} ?
+            this.fullText.substring(0, {{ $limit }}) + '...' :
+            this.fullText;
+    },
+    toggle() {
+        this.isExpanded = !this.isExpanded;
+    }
 }" {{ $attributes->merge(['class' => 'relative w-full']) }}>
     <div x-show="true" x-transition:enter="transition ease-out duration-{{ $animationDuration }}"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-        class="{{ $textClass }} flex flex-col">
-        <div x-html="isExpanded ? fullHtml : truncatedHtml"></div>
+        class="{{ $textClass }} flex flex-col prose prose-light dark:prose-dark">
+        <span x-html="isExpanded ? fullText : truncatedText"></span>
 
-        @if (strlen($plainText) > $limit)
-            <button x-show="true" @click="isExpanded = !isExpanded"
+        @if (strlen($text) > $limit)
+            <button x-show="fullText.length > {{ $limit }}" @click="toggle()"
                 class="{{ $buttonClass }} inline-flex items-center gap-1">
-                <span x-text="isExpanded ? '{!! $lessText !!}' : '{!! $moreText !!}'"></span>
+                <span x-text="isExpanded ? '{{ $lessText }}' : '{{ $moreText }}'"
+                    class="{{ $buttonClass }}"></span>
                 <svg xmlns="http://www.w3.org/2000/svg" :class="{ 'rotate-180': isExpanded }"
                     class=" h-4 w-4 transition ease-in-out" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"

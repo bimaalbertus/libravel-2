@@ -16,7 +16,7 @@ class TimeHelper
             return __('time.years_ago', ['count' => $diff->y]);
         } elseif ($diff->m > 0) {
             return __('time.months_ago', ['count' => $diff->m]);
-        } elseif ($diff->d > 6) {
+        } elseif ($diff->d > 7) {
             $weeks = floor($diff->d / 7);
             return __('time.weeks_ago', ['count' => $weeks]);
         } elseif ($diff->d > 0) {
@@ -24,7 +24,7 @@ class TimeHelper
         } elseif ($diff->h > 0) {
             return __('time.hours_ago', ['count' => $diff->h]);
         } elseif ($diff->i > 0) {
-            return __('time.minutes_ago', ['count' => $diff->m]);
+            return __('time.minutes_ago', ['count' => $diff->i]);
         } else {
             return __('time.seconds_ago', ['count' => $diff->s]);
         }

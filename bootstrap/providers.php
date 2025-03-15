@@ -6,4 +6,5 @@ return [
     App\Providers\LivewireAuthServiceProvider::class,
     App\Providers\ViewServiceProvider::class,
     Spatie\Permission\PermissionServiceProvider::class,
+    Laravel\Scout\ScoutServiceProvider::class,
 ];

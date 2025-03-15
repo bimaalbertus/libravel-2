@@ -109,7 +109,7 @@ export default {
                         tertiary: "#302D29",
                     },
                     text: {
-                        primary: "#F0EBE2",
+                        primary: "#F5EBE2",
                         secondary: "#CBC3B6",
                         tertiary: "#9A9287",
                     },
@@ -120,9 +120,71 @@ export default {
                     },
                 },
             },
+            typography: (theme) => ({
+                light: {
+                    css: {
+                        color: theme("colors.light.text.primary"),
+                        a: {
+                            color: "rgb(59, 130, 246)",
+                            "&:hover": {
+                                opacity: "0.7",
+                            },
+                        },
+                        h1: { color: theme("colors.light.text.primary") },
+                        h2: { color: theme("colors.light.text.primary") },
+                        h3: { color: theme("colors.light.text.primary") },
+                        em: { color: theme("colors.light.text.primary") },
+                        del: { color: theme("colors.light.text.primary") },
+                        span: { color: theme("colors.light.text.primary") },
+                        blockquote: {
+                            color: theme("colors.light.text.secondary"),
+                            borderLeftColor: theme(
+                                "colors.light.primary.DEFAULT"
+                            ),
+                            backgroundColor: "rgb(232, 152, 106, 0.2)",
+                            fontSize: "16px",
+                            padding: "10px",
+                        },
+                        strong: { color: theme("colors.light.text.primary") },
+                        code: {
+                            backgroundColor: theme("colors.light.bg.secondary"),
+                        },
+                    },
+                },
+                dark: {
+                    css: {
+                        color: theme("colors.dark.text.primary"),
+                        a: {
+                            color: "rgb(59, 130, 246)",
+                            "&:hover": {
+                                opacity: "0.7",
+                            },
+                        },
+                        h1: { color: theme("colors.dark.text.primary") },
+                        h2: { color: theme("colors.dark.text.primary") },
+                        h3: { color: theme("colors.dark.text.primary") },
+                        em: { color: theme("colors.dark.text.primary") },
+                        del: { color: theme("colors.dark.text.primary") },
+                        span: { color: theme("colors.dark.text.primary") },
+                        blockquote: {
+                            color: theme("colors.dark.text.secondary"),
+                            borderLeftColor: theme(
+                                "colors.dark.primary.DEFAULT"
+                            ),
+                            backgroundColor: "rgb(154, 156, 125, 0.3)",
+                            fontSize: "16px",
+                            padding: "10px",
+                        },
+                        strong: { color: theme("colors.dark.text.primary") },
+                        code: {
+                            backgroundColor: theme("colors.dark.bg.secondary"),
+                        },
+                    },
+                },
+            }),
         },
     },
-    plugins: [],
+    plugins: [require("@tailwindcss/typography")],
 };
 
 // alternate pallete

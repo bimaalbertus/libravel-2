@@ -4,12 +4,17 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\UserReview as Review;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Masmerise\Toaster\Toaster;
+use Filament\Forms;
 
-class UserReviewForm extends Component
+class UserReviewForm extends Component implements HasForms
 {
+    use InteractsWithForms;
+
     public $bookId;
     public $bookSlug;
     public $rating = 0;
@@ -22,6 +27,7 @@ class UserReviewForm extends Component
     {
         $this->bookId = $bookId;
         $this->loadExistingReview();
+        $this->form->fill(['reviewText' => $this->reviewText]);
     }
 
     protected function loadExistingReview()
@@ -39,15 +45,28 @@ class UserReviewForm extends Component
         }
     }
 
+    public function form(Forms\Form $form): Forms\Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\RichEditor::make('reviewText')
+                    ->label(ucfirst(__('review.your_review')))
+                    ->disableToolbarButtons(['attachFiles', 'h2', 'h3', 'codeBlock', 'link', 'blockquote'])
+                    ->maxLength(5000)
+                    ->extraAttributes(['class' => 'max-h-96']),
+            ])
+            ->statePath('reviewText');
+    }
+
     public function saveRating()
     {
         try {
             $this->validate([
                 'rating' => 'required|numeric|min:0.5|max:5',
-                'reviewText' => 'nullable|max:2000',
             ]);
 
             if (Auth::check()) {
+                $reviewTextHtml = $this->form->getState()['reviewText'];
                 Review::updateOrCreate(
                     [
                         'user_id' => Auth::id(),
@@ -55,7 +74,7 @@ class UserReviewForm extends Component
                     ],
                     [
                         'rating' => $this->rating,
-                        'review_text' => $this->reviewText,
+                        'review_text' => $reviewTextHtml,
                     ]
                 );
 
